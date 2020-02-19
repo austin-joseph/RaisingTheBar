@@ -96,9 +96,9 @@ export default class TestOverview extends Component {
 										<td>{item.desc}</td>
 										<td>{item.dateCreated}</td>
 										<td>{item.dateLastTaken}</td>
-										<td>Delete</td>
-										<td>{item.editable ? "Edit" : "Cant Edit"}</td>
-										<td ><button onClick={this.selectTest.bind(this, item)}>Details</button></td>
+										<td><button>Delete</button></td>
+										<td>{item.editable ? <a href={"#"}><button>Edit</button> </a> : "Cant Edit"}</td>
+										<td><button onClick={this.selectTest.bind(this, item)}>Details</button></td>
 									</tr>)
 								})}
 							</tbody>
