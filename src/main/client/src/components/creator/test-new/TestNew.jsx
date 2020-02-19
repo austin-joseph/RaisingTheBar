@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavigationBar from "./../navbar/NavigationBar";
 import { Table } from "react-bootstrap";
 import './TestNew.scss';
 
@@ -46,7 +45,6 @@ export default class TestNew extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<NavigationBar />
 				<div id={"parent"}>
 					<div id={"left"}>
 						<div id={"title-left"}>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavigationBar from "./../navbar/NavigationBar";
 import { Button, Table } from "react-bootstrap";
 import './TestResultsDetailed.scss';
 
@@ -156,7 +155,6 @@ export default class TestResultsDetailed extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<NavigationBar />
 				<div id={"top"}>
 					<div className={"alightLeft"}>
 						<Button>Back</Button>

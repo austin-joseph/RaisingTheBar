@@ -7,6 +7,10 @@ import CreateSimulation from "./CreateSimulation";
 import EditSimulationStepper from "./EditSimulationStepper";
 import ViewMySimulations from "./ViewMySimulations";
 
+import TestOverview from './test-overview/TestOverview';
+import TestNew from './test-new/TestNew';
+import TestResultsDetailed from './test-results-detailed/TestResultsDetailed';
+
 export default class CreatorContainer extends Component {
   constructor() {
     super();
@@ -62,8 +66,8 @@ export default class CreatorContainer extends Component {
       ],
     };
     {
-      var globalThis = this;
-      var xhr = new XMLHttpRequest();
+      let globalThis = this;
+      let xhr = new XMLHttpRequest();
       xhr.open('GET', '/recipe/list');
       xhr.onload = function () {
         // do something to response
@@ -78,9 +82,9 @@ export default class CreatorContainer extends Component {
       xhr.send();
     }
     {
-      var xhr = new XMLHttpRequest();
+      let xhr = new XMLHttpRequest();
       xhr.open('GET', '/simulation/list/mine');
-      var globalThis = this
+      let globalThis = this
       xhr.onload = function () {
         // do something to response
         var responseObject = null;
@@ -94,8 +98,8 @@ export default class CreatorContainer extends Component {
       xhr.send();
     }
     {
-      var globalThis = this;
-      var xhr = new XMLHttpRequest();
+      let globalThis = this;
+      let xhr = new XMLHttpRequest();
       xhr.open('GET', '/user');
       xhr.onload = function () {
         // do something to response
@@ -159,7 +163,7 @@ export default class CreatorContainer extends Component {
     xhr.send(formData);
   }
   redirect(eventKey, event) {
-    if (eventKey === "newRecipe") {
+    if (eventKey === "drink-new") {
       this.props.history.push("/bartop/recipe/add");
       window.location.reload(true);
     } else {
@@ -172,19 +176,18 @@ export default class CreatorContainer extends Component {
     return (
       <React.Fragment>
         <NavigationBar />
-        <Tabs defaultActiveKey={(this.props.match.params.var1 == null || this.props.match.params.var1 == "") ? "create" : this.props.match.params.var1} transition={false} id="creator-tabs" onSelect={this.redirect} >
-          <Tab eventKey="create" title="Create Simulation" />
-          <Tab eventKey="edit" title="Edit Simulation" />
-          <Tab eventKey="simulations" title="View Simulations" />
-          <Tab eventKey="newRecipe" title="Create A New Recipe" />
+        <Tabs defaultActiveKey={(this.props.match.params.var1 == null || this.props.match.params.var1 == "") ? "test-overview" : this.props.match.params.var1} transition={false} id="creator-tabs" onSelect={this.redirect} >
+          <Tab eventKey="test-overview" title="Test Overview" />
+          <Tab eventKey="test-new" title="Create A New Test" />
+          <Tab eventKey="drink-new" title="Create A New Drink" />
         </Tabs>
 
         <Router>
           <Switch>
-            <Route exact path="/creator/" render={(props) => <CreateSimulation {...props} user={this.state.user} recipes={this.state.recipes} deleteRecipeCallback={this.deleteRecipeCallback} />} />
-            <Route exact path="/creator/create" render={(props) => <CreateSimulation {...props} user={this.state.user} recipes={this.state.recipes} deleteRecipeCallback={this.deleteRecipeCallback} />} />
-            <Route exact path="/creator/edit" render={(props) => <EditSimulationStepper {...props} recipes={this.state.recipes} simulations={this.state.simulations} />} />
-            <Route exact path="/creator/simulations" render={(props) => <ViewMySimulations {...props} user={this.state.user} simulations={this.state.simulations} deleteSimulationCallback={this.deleteSimulationCallback} />} />
+            <Route exact path="/creator/" render={(props) => <TestOverview {...props} user={this.state.user} recipes={this.state.recipes} deleteRecipeCallback={this.deleteRecipeCallback} />} />
+            <Route exact path="/creator/test-overview" render={(props) => <TestOverview {...props} user={this.state.user} recipes={this.state.recipes} deleteRecipeCallback={this.deleteRecipeCallback} />} />
+            <Route exact path="/creator/test-new" render={(props) => <TestNew {...props} recipes={this.state.recipes} simulations={this.state.simulations} />} />
+            <Route exact path="/creator/test-results" render={(props) => <ViewMySimulations {...props} user={this.state.user} simulations={this.state.simulations} deleteSimulationCallback={this.deleteSimulationCallback} />} />
           </Switch>
         </Router>
       </React.Fragment>

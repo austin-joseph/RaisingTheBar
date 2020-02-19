@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavigationBar from "./../navbar/NavigationBar";
 import { Table } from "react-bootstrap";
 import './TestOverview.scss';
 
@@ -69,7 +68,6 @@ export default class TestOverview extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<NavigationBar />
 				<div id={"parent"}>
 					<div id={"left"}>
 						<div id={"title-left"}>
@@ -155,7 +153,7 @@ export default class TestOverview extends Component {
 										<td>{item.score}</td>
 										<td>{item.dateLastTaken}</td>
 										<td>{item.numAttempts}</td>
-										<td >Details</td>
+										<td><a href={"/creator/test-results/"+this.state.selectedTest.id+"/"+item.id}><button>Details</button></a></td>
 									</tr>)
 								}) : "Select a test to view"}
 								{this.state.selectedTest != null ? <tr><td>Add new person</td><td>Email: </td></tr> : ""}
