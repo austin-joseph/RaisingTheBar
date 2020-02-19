@@ -1,0 +1,41 @@
+@import "../Theme.scss";
+#parent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-top: 1vw;
+}
+
+#title {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#title-left {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 1vw;
+    margin-right: 1vw
+}
+
+#title-right {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#left {
+    width: wrap;
+    border-width: 2px;
+    border-style: groove;
+}
+
+#right {
+    width: wrap;
+    border-width: 2px;
+    border-style: groove;
+}
