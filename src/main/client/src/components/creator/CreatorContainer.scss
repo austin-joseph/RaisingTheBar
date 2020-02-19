@@ -1,9 +1,30 @@
 @import "../Theme.scss";
-.flex-container {
+#sub-navbar {
+    margin: auto;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    .sub-navbar-item {
+        margin-left: 1vw;
+        margin-right: 1vw;
+        font-size: 1vw;
+        a {
+            color: black;
+        }
+    }
 }
 
-.selected {
-    background-color: yellow
+#parent {
+    margin: auto;
+    padding: 10px;
+    width: 80%;
+}
+
+.title {
+    font-size: 1vw;
+    margin: auto;
+    text-align: center;
+}
+
+.displayNone {
+    display: none;
 }

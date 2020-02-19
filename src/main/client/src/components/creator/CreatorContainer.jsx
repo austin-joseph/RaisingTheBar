@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Tabs, Tab } from 'react-bootstrap';
+import { Nav, Navbar, Tabs, Tab } from 'react-bootstrap';
 import NavigationBar from "./../navbar/NavigationBar";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './CreatorContainer.scss';
@@ -7,14 +7,14 @@ import './CreatorContainer.scss';
 import TestOverview from './test-overview/TestOverview';
 import TestNew from './test-new/TestNew';
 import TestResultsDetailed from './test-results-detailed/TestResultsDetailed';
+import TestDetails from './test-details/TestDetails';
 
 export default class CreatorContainer extends Component {
   constructor() {
     super();
     this.state = {
-      selectedTab: "create",
       user: null,
-      simulations: [
+      tests: [
         // {
         //   id: "5df9747b3077821a54f61336",
         //   creator: "5df93e963077821980b21180",
@@ -22,11 +22,11 @@ export default class CreatorContainer extends Component {
         //   description: "Test Sim",
         //   public: true,
         //   practice: true,
-        //   recipes: [
+        //   drinks: [
         //     "5df955aff68021c70a750e7c",
         //     "5df97264f68021d2fbddbd1b"
         //   ],
-        //   date: 1576629371743,
+        //   dateCreated: 1576629371743,
         // },
         // {
         //   id: "5df975283077821a54f61337",
@@ -35,15 +35,15 @@ export default class CreatorContainer extends Component {
         //   description: "Test sim",
         //   public: true,
         //   practice: true,
-        //   recipes: [
+        //   drinks: [
         //     "5df955aff68021c70a750e7c",
         //     "5df97264f68021d2fbddbd1b"
         //   ],
-        //   date: 1576629544640,
+        //   dateCreated: 1576629544640,
         //   json: "{\"name\":\"Tes sim\",\"description\":\"Test sim\",\"public\":true,\"practice\":true,\"recipes\":[\"5df955aff68021c70a750e7c\",\"5df97264f68021d2fbddbd1b\"]}"
         // }
       ],
-      recipes: [
+      drinks: [
         // {
         //   id: "5df955aff68021c70a750e7c",
         //   name: "shake json",
@@ -65,7 +65,7 @@ export default class CreatorContainer extends Component {
     {
       let globalThis = this;
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', '/recipe/list');
+      xhr.open('GET', '/drinks/list');
       xhr.onload = function () {
         // do something to response
         var responseObject = null;
@@ -80,7 +80,7 @@ export default class CreatorContainer extends Component {
     }
     {
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', '/simulation/list/mine');
+      xhr.open('GET', '/tests/list/mine');
       let globalThis = this
       xhr.onload = function () {
         // do something to response
@@ -110,13 +110,12 @@ export default class CreatorContainer extends Component {
       };
       xhr.send();
     }
-    this.deleteRecipeCallback = this.deleteRecipeCallback.bind(this);
-    this.deleteSimulationCallback = this.deleteSimulationCallback.bind(this);
-    this.redirect = this.redirect.bind(this);
+    this.deleteDrinkCallback = this.deleteDrinkCallback.bind(this);
+    this.deleteTestsCallback = this.deleteTestsCallback.bind(this);
   }
-  deleteRecipeCallback(id) {
+  deleteDrinkCallback(id) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/recipe/delete');
+    xhr.open('POST', '/drinks/delete');
     var formData = new FormData()
     formData.append("id", id);
     var globalThis = this
@@ -136,9 +135,9 @@ export default class CreatorContainer extends Component {
     };
     xhr.send(formData);
   }
-  deleteSimulationCallback(id) {
+  deleteTestsCallback(id) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/simulation/delete');
+    xhr.open('POST', '/tests/delete');
     var formData = new FormData()
     formData.append("id", id);
     var globalThis = this
@@ -159,51 +158,31 @@ export default class CreatorContainer extends Component {
     };
     xhr.send(formData);
   }
-  redirect(eventKey, event) {
-    if (eventKey === "drink-new") {
-      this.props.history.push("/bartop/recipe/add");
-      window.location.reload(true);
-    } else {
-      this.props.history.push("/creator/" + eventKey);
-      window.location.reload(true);
-    }
-    // console.log(eventKey)
-  }
+
   render() {
     return (
       <React.Fragment>
         <NavigationBar />
-        <Tabs defaultActiveKey={(this.props.match.params.var1 == null || this.props.match.params.var1 == "") ? "test-overview" : this.props.match.params.var1} transition={false} id="creator-tabs" onSelect={this.redirect} >
-          <Tab eventKey="test-overview" title="Test Overview" />
-          <Tab eventKey="test-new" title="Create A New Test" />
-          <Tab eventKey="drink-new" title="Create A New Drink" />
-        </Tabs>
+        <div id={"sub-navbar"}>
+          <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Tests YOU Admininister </a></div>
+          <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Tests youve been assgined</a></div>
+          <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Your test results</a></div>
+          <div className={"sub-navbar-item"}><a href="/creator/test-new"> Create A New Test </a></div>
+          <div className={"sub-navbar-item"}><a href="/bartop/recipe/add"> Create A New Drink </a></div>
+        </div>
 
         <Router>
           <Switch>
-            <Route exact path="/creator/" render={(props) => <TestOverview {...props} user={this.state.user} recipes={this.state.recipes} deleteRecipeCallback={this.deleteRecipeCallback} />} />
-            <Route exact path="/creator/test-overview" render={(props) => <TestOverview {...props} user={this.state.user} recipes={this.state.recipes} deleteRecipeCallback={this.deleteRecipeCallback} />} />
-            <Route exact path="/creator/test-new" render={(props) => <TestNew {...props} recipes={this.state.recipes} simulations={this.state.simulations} />} />
-            <Route exact path="/creator/test-results" render={(props) => <TestResultsDetailed {...props} user={this.state.user} simulations={this.state.simulations} deleteSimulationCallback={this.deleteSimulationCallback} />} />
+            
+          <Route exact path="/creator/" render={(props) => <TestDetails {...props} />} />
+            {/* <Route exact path="/creator/" render={(props) => <TestOverview {...props} />} />
+            <Route exact path="/creator/test-overview" render={(props) => <TestOverview {...props} />} />
+            <Route exact path="/creator/test-new" render={(props) => <TestNew {...props} />} />
+            <Route exact path="/creator/test-results" render={(props) => <TestResultsDetailed {...props} />} />
+            <Route path="/creator/test-details/?:var1" render={(props) => <TestDetails {...props} />} /> */}
           </Switch>
         </Router>
       </React.Fragment>
-
-      // <div>
-      // <NavigationBar />
-      // <Tabs defaultActiveKey="createSimulation" transition={false} id="creator-tabs">
-      //   <Tab eventKey="createSimulation" title="Create Simulation">
-      //     <CreateSimulation />
-      //   </Tab>
-      //   <Tab eventKey="editSimulation" title="Edit Simulation">
-      //     <EditSimulation />
-      //   </Tab>
-
-      //   <Tab eventKey="viewMySimulations" title="View My Simulations">
-      //     <ViewMySimulations />
-      //   </Tab>
-      // </Tabs>
-      // </div>
     )
   }
 }

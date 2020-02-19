@@ -9,16 +9,16 @@ export default class TestNew extends Component {
 			selectedDrinks: [],
 			drinks: [
 				{
-					name:"Water",
-					desc:"Best drink in the world"
+					name: "Water",
+					desc: "Best drink in the world"
 				},
 				{
-					name:"Sugar Water",
-					desc:"Second best drink in the world"
+					name: "Sugar Water",
+					desc: "Second best drink in the world"
 				},
 				{
-					name:"Salted Water",
-					desc:"Third best drink in the world"
+					name: "Salted Water",
+					desc: "Third best drink in the world"
 				}
 			]
 		}
@@ -47,9 +47,9 @@ export default class TestNew extends Component {
 			<React.Fragment>
 				<div id={"parent"}>
 					<div id={"left"}>
-						<div id={"title-left"}>
-							<div className={"title"}>Drinks</div>
-						</div>
+
+						<div className={"title"}>Drinks</div>
+
 						<Table striped hover>
 							<thead>
 								<tr>
@@ -71,10 +71,8 @@ export default class TestNew extends Component {
 					</div>
 
 					<div id={"right"}>
-						<div id={"title-right"}>
-							<div className={"title"}>Drinks In Test</div>
-							<button>Submit</button>
-						</div>
+						<div className={"title"}>Drinks In Test</div>
+						<button>Submit</button>
 						<Table striped bordered hover>
 							<thead>
 								<tr>

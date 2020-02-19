@@ -1,18 +1,17 @@
 @import "../Theme.scss";
-.navbar {
-    background-color: black;
-    height: 6%;
-}
-
-.nav-item a {
-    color: $primary-text-color!important;
-}
-
-.logo {
-    width: calc(10vh * 1.6);
-    margin: 0;
-}
-
-.custom-navbar {
-    padding: 0 2.3vw 0 2.3vw;
+#global-navbar {
+    .navbar {
+        background-color: black;
+        height: 6%;
+    }
+    .nav-item a {
+        color: $primary-text-color!important;
+    }
+    .logo {
+        width: calc(10vh * 1.6);
+        margin: 0;
+    }
+    .custom-navbar {
+        padding: 0 2.3vw 0 2.3vw;
+    }
 }
