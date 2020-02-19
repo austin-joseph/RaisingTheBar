@@ -70,7 +70,7 @@ export default class TestOverview extends Component {
 		return (
 			<React.Fragment>
 				<NavigationBar />
-				<div id={"parent"} className={"flex"}>
+				<div id={"parent"}>
 					<div id={"left"}>
 						<div id={"title-left"}>
 							<div className={"title"}>Your Tests</div>
@@ -98,7 +98,7 @@ export default class TestOverview extends Component {
 										<td>{item.dateLastTaken}</td>
 										<td>Delete</td>
 										<td>{item.editable ? "Edit" : "Cant Edit"}</td>
-										<td onClick={this.selectTest.bind(this, item)}>></td>
+										<td ><button onClick={this.selectTest.bind(this, item)}>Details</button></td>
 									</tr>)
 								})}
 							</tbody>
@@ -157,7 +157,7 @@ export default class TestOverview extends Component {
 										<td>{item.numAttempts}</td>
 										<td >Details</td>
 									</tr>)
-								}) : "asdf"}
+								}) : "Select a test to view"}
 								{this.state.selectedTest != null ? <tr><td>Add new person</td><td>Email: </td></tr> : ""}
 							</tbody>
 						</Table>
