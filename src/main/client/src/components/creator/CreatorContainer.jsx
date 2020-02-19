@@ -3,9 +3,6 @@ import { Tabs, Tab } from 'react-bootstrap';
 import NavigationBar from "./../navbar/NavigationBar";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './CreatorContainer.scss';
-import CreateSimulation from "./CreateSimulation";
-import EditSimulationStepper from "./EditSimulationStepper";
-import ViewMySimulations from "./ViewMySimulations";
 
 import TestOverview from './test-overview/TestOverview';
 import TestNew from './test-new/TestNew';
@@ -187,7 +184,7 @@ export default class CreatorContainer extends Component {
             <Route exact path="/creator/" render={(props) => <TestOverview {...props} user={this.state.user} recipes={this.state.recipes} deleteRecipeCallback={this.deleteRecipeCallback} />} />
             <Route exact path="/creator/test-overview" render={(props) => <TestOverview {...props} user={this.state.user} recipes={this.state.recipes} deleteRecipeCallback={this.deleteRecipeCallback} />} />
             <Route exact path="/creator/test-new" render={(props) => <TestNew {...props} recipes={this.state.recipes} simulations={this.state.simulations} />} />
-            <Route exact path="/creator/test-results" render={(props) => <ViewMySimulations {...props} user={this.state.user} simulations={this.state.simulations} deleteSimulationCallback={this.deleteSimulationCallback} />} />
+            <Route exact path="/creator/test-results" render={(props) => <TestResultsDetailed {...props} user={this.state.user} simulations={this.state.simulations} deleteSimulationCallback={this.deleteSimulationCallback} />} />
           </Switch>
         </Router>
       </React.Fragment>
