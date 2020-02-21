@@ -1,26 +1,26 @@
-package darkpurple.hw2.database.entity;
+package raisingthebar.database.entity;
 
 import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document (collection = "simulations")
-public class Simulation {
-    
+@Document(collection = "drinks")
+public class Drink {
+
     @Id
     private String id;
-    
-    private String creator;
+
     private String name;
     private String description;
     private boolean isPublic;
-    private boolean isPractice;
-    private String[] recipes;
+
     private Date date;
+
+    private String creator;
+
     private String json;
 
-    public Simulation() {
-    }
+    private boolean hidden = false;
 
     public String getId() {
         return id;
@@ -28,14 +28,6 @@ public class Simulation {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
     }
 
     public String getName() {
@@ -62,20 +54,12 @@ public class Simulation {
         this.isPublic = isPublic;
     }
 
-    public boolean isIsPractice() {
-        return isPractice;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setIsPractice(boolean isPractice) {
-        this.isPractice = isPractice;
-    }
-
-    public String[] getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(String[] recipes) {
-        this.recipes = recipes;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public Date getDate() {
@@ -86,11 +70,20 @@ public class Simulation {
         this.date = date;
     }
 
+    public void setJson(String json) {
+        this.json = json;
+    }
+
     public String getJson() {
         return json;
     }
 
-    public void setJson(String json) {
-        this.json = json;
-    } 
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
 }

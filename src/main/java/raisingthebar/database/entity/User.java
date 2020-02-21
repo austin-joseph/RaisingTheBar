@@ -1,4 +1,4 @@
-package darkpurple.hw2.database.entity;
+package raisingthebar.database.entity;
 
 import org.springframework.data.annotation.Id;
 import java.util.Set;

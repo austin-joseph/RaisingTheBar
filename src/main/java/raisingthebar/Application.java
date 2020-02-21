@@ -1,4 +1,4 @@
-package darkpurple.hw2;
+package raisingthebar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

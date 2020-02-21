@@ -1,4 +1,4 @@
-package darkpurple.hw2.database;
+package raisingthebar.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

@@ -1,26 +1,26 @@
-package darkpurple.hw2.database.entity;
+package raisingthebar.database.entity;
 
 import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "recipes")
-public class Recipe {
-
+@Document (collection = "tests")
+public class Test {
+    
     @Id
     private String id;
-
+    
+    private String creator;
     private String name;
     private String description;
     private boolean isPublic;
-
+    private boolean isPractice;
+    private String[] recipes;
     private Date date;
-
-    private String creator;
-
     private String json;
 
-    private boolean hidden = false;
+    public Test() {
+    }
 
     public String getId() {
         return id;
@@ -28,6 +28,14 @@ public class Recipe {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public String getName() {
@@ -54,12 +62,20 @@ public class Recipe {
         this.isPublic = isPublic;
     }
 
-    public String getCreator() {
-        return creator;
+    public boolean isIsPractice() {
+        return isPractice;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setIsPractice(boolean isPractice) {
+        this.isPractice = isPractice;
+    }
+
+    public String[] getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(String[] recipes) {
+        this.recipes = recipes;
     }
 
     public Date getDate() {
@@ -70,20 +86,11 @@ public class Recipe {
         this.date = date;
     }
 
-    public void setJson(String json) {
-        this.json = json;
-    }
-
     public String getJson() {
         return json;
     }
 
-    public boolean isHidden() {
-        return hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
+    public void setJson(String json) {
+        this.json = json;
+    } 
 }

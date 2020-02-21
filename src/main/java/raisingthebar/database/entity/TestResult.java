@@ -1,31 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package darkpurple.hw2.database.entity;
+package raisingthebar.database.entity;
 
 import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-/**
- *
- * @author anilramsoomye
- */
-@Document (collection = "simulationGrade")
-public class SimulationGrade {
-    
-   @Id
-   private String id;
-   
-   private String simulationId;
-   
-   private String userId;
-   
-   private Date dateCompleted;
-   
-   private String jsonGrades;
+@Document(collection = "testResults")
+public class TestResult {
+
+    @Id
+    private String id;
+
+    private String simulationId;
+
+    private String userId;
+
+    private Date dateCompleted;
+
+    private String jsonGrades;
 
     public String getSimulationId() {
         return simulationId;
@@ -35,7 +26,6 @@ public class SimulationGrade {
         this.simulationId = simulationId;
     }
 
-   
     public String getId() {
         return id;
     }
@@ -67,8 +57,4 @@ public class SimulationGrade {
     public void setJsonGrades(String jsonGrades) {
         this.jsonGrades = jsonGrades;
     }
-
-   
-   
-   
 }

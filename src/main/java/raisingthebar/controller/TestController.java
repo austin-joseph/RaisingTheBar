@@ -1,12 +1,12 @@
-package darkpurple.hw2.controller;
+package raisingthebar.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import darkpurple.hw2.database.CustomUserDetailsService;
-import darkpurple.hw2.database.SimulationService;
-import darkpurple.hw2.database.entity.Simulation;
-import darkpurple.hw2.database.entity.SimulationGrade;
-import darkpurple.hw2.database.entity.User;
+import raisingthebar.database.CustomUserDetailsService;
+import raisingthebar.database.TestService;
+import raisingthebar.database.entity.Test;
+import raisingthebar.database.entity.TestResult;
+import raisingthebar.database.entity.User;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,22 +19,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class SimulationController {
+public class TestController {
 
     @Autowired
-    private SimulationService simulationService;
+    private TestService simulationService;
 
     @Autowired
     private CustomUserDetailsService userService;
 
-    @RequestMapping(value = "/simulation/get", method = RequestMethod.GET)
-    public ResponseEntity getSimulation(@RequestParam("id") String simulationId) {
-        Simulation sim = simulationService.findSimulationById(simulationId);
+    @RequestMapping(value = "/tests/get", method = RequestMethod.GET)
+    public ResponseEntity getTest(@RequestParam("id") String simulationId) {
+        Test sim = simulationService.findSimulationById(simulationId);
         if (sim != null) {
             return ResponseEntity.status(HttpStatus.OK).body(sim);
         }
@@ -42,11 +41,11 @@ public class SimulationController {
 
     }
 
-    @RequestMapping(value = "/simulation/grade/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/tests/grade/add", method = RequestMethod.POST)
     public ResponseEntity addGrade(@RequestParam("simID") String simID, @RequestParam("grade") String grades) {
         User user = userService.getLoggedUser();
         if (user != null) {
-            SimulationGrade simGrade = new SimulationGrade();
+            TestResult simGrade = new TestResult();
             simGrade.setSimulationId(simID);
             simGrade.setUserId(user.getId());
             simGrade.setDateCompleted(new Date());
@@ -59,8 +58,8 @@ public class SimulationController {
     }
 
     //TODO add proper security checking to this
-    @RequestMapping(value = "/simulation/grade/get", method = RequestMethod.POST)
-    public ResponseEntity getSimulationGrade(@RequestParam("id") String simulationId) {
+    @RequestMapping(value = "/tests/grade/get", method = RequestMethod.POST)
+    public ResponseEntity getTestGrade(@RequestParam("id") String simulationId) {
         List gradeList = simulationService.getSimGrades(simulationId);
         ObjectMapper mapper = new ObjectMapper();
         Map outputMap = new HashMap();
@@ -73,12 +72,12 @@ public class SimulationController {
         }
     }
 
-    @RequestMapping(value = "/simulation/add", method = RequestMethod.POST)
-    public ResponseEntity createNewSimulation(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("public") boolean isPublic, @RequestParam("practice") boolean isPractice, @RequestParam("recipes") String[] recipes, @RequestParam("json") String json) {
+    @RequestMapping(value = "/tests/add", method = RequestMethod.POST)
+    public ResponseEntity createNewTest(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("public") boolean isPublic, @RequestParam("practice") boolean isPractice, @RequestParam("recipes") String[] recipes, @RequestParam("json") String json) {
 
         User user = userService.getLoggedUser();
         if (user != null) {
-            Simulation simulation = new Simulation();
+            Test simulation = new Test();
             simulation.setCreator(user.getId());
             simulation.setName(name);
             simulation.setDescription(description);
@@ -94,12 +93,12 @@ public class SimulationController {
         }
     }
 
-    @RequestMapping(value = "/simulation/edit", method = RequestMethod.POST)
-    public ResponseEntity editSimulation(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("public") boolean isPublic, @RequestParam("practice") boolean isPractice, @RequestParam("recipes") String[] recipes, @RequestParam("json") String json) {
+    @RequestMapping(value = "/tests/edit", method = RequestMethod.POST)
+    public ResponseEntity editTest(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("public") boolean isPublic, @RequestParam("practice") boolean isPractice, @RequestParam("recipes") String[] recipes, @RequestParam("json") String json) {
 
         User user = userService.getLoggedUser();
         if (user != null) {
-            Simulation simulation = new Simulation();
+            Test simulation = new Test();
             simulation.setId(id);
             simulation.setCreator(user.getId());
             simulation.setName(name);
@@ -116,11 +115,11 @@ public class SimulationController {
         }
     }
 
-    @RequestMapping(value = "/simulation/delete", method = RequestMethod.POST)
-    public ResponseEntity deleteSim(@RequestParam("id") String simulationId) {
+    @RequestMapping(value = "/tests/delete", method = RequestMethod.POST)
+    public ResponseEntity deleteTest(@RequestParam("id") String simulationId) {
         User user = userService.getLoggedUser();
         if (user != null) {
-            Simulation toBeDeleted = simulationService.findSimulationById(simulationId);
+            Test toBeDeleted = simulationService.findSimulationById(simulationId);
             if (toBeDeleted != null && toBeDeleted.getCreator().equals(user.getId())) {
                 simulationService.deleteSimulation(toBeDeleted);
                 return ResponseEntity.status(HttpStatus.OK).body(null);
@@ -129,20 +128,20 @@ public class SimulationController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
-    @RequestMapping(value = "/simulation/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity allSimulations() {
+    @RequestMapping(value = "/tests/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllTests() {
         ObjectMapper mapper = new ObjectMapper();
         User user = userService.getLoggedUser();
         try {
             Map outputMap = new HashMap();
-            List<Simulation> simulationList = simulationService.getAllSimulations();
-            List<Simulation> approvedList = new ArrayList();
-            for (Simulation r : simulationList) {
+            List<Test> simulationList = simulationService.getAllSimulations();
+            List<Test> approvedList = new ArrayList();
+            for (Test r : simulationList) {
                 if (r.isIsPublic() || r.getCreator().equals(user.getId())) {
                     approvedList.add(r);
                 }
             }
-            outputMap.put("simulations", approvedList);
+            outputMap.put("tests", approvedList);
             String output = mapper.writeValueAsString(outputMap);
             return ResponseEntity.status(HttpStatus.OK).body(output);
         } catch (JsonProcessingException e) {
@@ -151,21 +150,21 @@ public class SimulationController {
         }
     }
 
-    @RequestMapping(value = "/simulation/list/mine", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity allUserSimulations() {
+    @RequestMapping(value = "/tests/list/mine", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity allUserTests() {
         ObjectMapper mapper = new ObjectMapper();
         User user = userService.getLoggedUser();
         if (user != null) {
             try {
                 Map outputMap = new HashMap();
-                List<Simulation> simulationList = simulationService.getAllSimulations();
-                List<Simulation> approvedList = new ArrayList();
-                for (Simulation r : simulationList) {
+                List<Test> simulationList = simulationService.getAllSimulations();
+                List<Test> approvedList = new ArrayList();
+                for (Test r : simulationList) {
                     if (r.getCreator().equals(user.getId())) {
                         approvedList.add(r);
                     }
                 }
-                outputMap.put("simulations", approvedList);
+                outputMap.put("tests", approvedList);
                 String output = mapper.writeValueAsString(outputMap);
                 return ResponseEntity.status(HttpStatus.OK).body(output);
             } catch (JsonProcessingException e) {

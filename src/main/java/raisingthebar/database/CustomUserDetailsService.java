@@ -1,9 +1,9 @@
-package darkpurple.hw2.database;
+package raisingthebar.database;
 
-import darkpurple.hw2.database.entity.Role;
-import darkpurple.hw2.database.entity.User;
-import darkpurple.hw2.database.repositories.RoleRepository;
-import darkpurple.hw2.database.repositories.UserRepository;
+import raisingthebar.database.entity.Role;
+import raisingthebar.database.entity.User;
+import raisingthebar.database.repositories.RoleRepository;
+import raisingthebar.database.repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

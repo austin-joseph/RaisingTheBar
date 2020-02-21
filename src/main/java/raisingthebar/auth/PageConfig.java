@@ -1,4 +1,4 @@
-package darkpurple.hw2.auth;
+package raisingthebar.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,5 +29,4 @@ public class PageConfig implements WebMvcConfigurer {
         registry.addViewController("/user/**").setViewName("forward:/index.html");
 //        registry.addViewController("/signin").setViewName("forward:/index.html");
     }
-
 }
