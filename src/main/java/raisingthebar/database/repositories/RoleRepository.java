@@ -1,6 +1,6 @@
-package darkpurple.hw2.database.repositories;
+package raisingthebar.database.repositories;
 
-import darkpurple.hw2.database.entity.Role;
+import raisingthebar.database.entity.Role;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface RoleRepository extends MongoRepository<Role, String> {

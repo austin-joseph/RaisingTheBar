@@ -1,4 +1,4 @@
-package darkpurple.hw2.auth;
+package raisingthebar.auth;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -24,6 +24,4 @@ public class CustomAuthenticationSuccessFailureHandler implements Authentication
         //https://httpstatuses.com/401
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
-    
-    
 }

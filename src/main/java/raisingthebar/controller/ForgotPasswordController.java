@@ -1,8 +1,8 @@
-package darkpurple.hw2.controller;
+package raisingthebar.controller;
 
-import darkpurple.hw2.database.CustomUserDetailsService;
-import darkpurple.hw2.database.EmailSenderService;
-import darkpurple.hw2.database.entity.User;
+import raisingthebar.database.CustomUserDetailsService;
+import raisingthebar.database.EmailSenderService;
+import raisingthebar.database.entity.User;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

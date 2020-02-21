@@ -1,14 +1,10 @@
-package darkpurple.hw2.controller;
+package raisingthebar.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.util.JSONParseException;
-import darkpurple.hw2.database.entity.User;
-import darkpurple.hw2.database.CustomUserDetailsService;
-import darkpurple.hw2.database.entity.Recipe;
-import java.util.ArrayList;
+import raisingthebar.database.entity.User;
+import raisingthebar.database.CustomUserDetailsService;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
