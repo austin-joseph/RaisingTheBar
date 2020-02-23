@@ -83,7 +83,7 @@ export default class TestOverview extends Component {
 									<td>{item.dateCreated}</td>
 									<td>{item.dateLastTaken}</td>
 									<td><button>Delete</button></td>
-									<td>{item.editable ? <a href={"#"}><button>Edit</button> </a> : "Cant Edit"}</td>
+									<td>{item.editable ? <a href={"x.y"}><button>Edit</button> </a> : "Cant Edit"}</td>
 									<td><a href={"/creator/test-details/" + item.id}><button>Details</button></a></td>
 								</tr>)
 							})}

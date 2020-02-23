@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './SimulationCard.scss';
+import './TestCard.scss';
 
 export default class SimulationCard extends Component {
   constructor(props) {

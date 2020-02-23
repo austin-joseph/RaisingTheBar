@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import NavigationBar from "./../navbar/NavigationBar";
-import SimulationCard from "./SimulationCard";
+import TestCard from "./TestCard";
 import { Col, Jumbotron } from "react-bootstrap";
 
 export default class Workshop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      simulations: [
+      tests: [
         // {
         //   id: "1",
         //   name: "simmulation test 1",
@@ -41,14 +41,14 @@ export default class Workshop extends Component {
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/simulation/list', true);
+    xhr.open('GET', '/tests/list', true);
     var globalThis = this
     xhr.onload = function () {
       // do something to response
       var responseObject = null;
       try {
         responseObject = JSON.parse(this.responseText)
-        globalThis.setState({ simulations: responseObject.simulations });
+        globalThis.setState({ tests: responseObject.tests });
       } catch (e) {
         console.error("Got Non JSON response from server");
       }
@@ -57,33 +57,35 @@ export default class Workshop extends Component {
   }
 
   render() {
-    let simulationCards = this.state.simulations.map(simulation => {
+    if (this.state.tests != null) {
+      let testCards = this.state.tests.map(test => {
+        return (
+          <div className="col-md-3">
+            <TestCard key={test.id} test={test} />
+          </div>
+        )
+      });
+
       return (
-        <div className="col-md-3">
-          <SimulationCard key={simulation.id} simulation={simulation} />
-        </div>
+        <React.Fragment>
+          <NavigationBar />
+          <div className="center">
+            This is the workshop where you can see any other public simulation that people have put together. </div>
+          <Jumbotron fluid className="jumbo p-0 m-5">
+            <Col className="mt-2 mb-4">
+              <div className="row p-1">
+                {testCards}
+              </div>
+            </Col>
+          </Jumbotron>
+          {/*<div className="workshop-body container-fluid d-flex justify-content-center">*/}
+          {/*<div className="row">*/}
+          {/*{simulationCards}*/}
+          {/*</div>*/}
+          {/*</div>*/}
+        </React.Fragment>
+
       )
-    });
-
-    return (
-      <React.Fragment>
-        <NavigationBar />
-        <div className ="center">
-          This is the workshop where you can see any other public simulation that people have put together. </div>
-        <Jumbotron fluid className="jumbo p-0 m-5">
-          <Col className="mt-2 mb-4">
-            <div className="row p-1">
-              {simulationCards}
-            </div>
-          </Col>
-        </Jumbotron>
-        {/*<div className="workshop-body container-fluid d-flex justify-content-center">*/}
-        {/*<div className="row">*/}
-        {/*{simulationCards}*/}
-        {/*</div>*/}
-        {/*</div>*/}
-      </React.Fragment>
-
-    )
+    }return<div></div>;
   }
 }

@@ -115,7 +115,7 @@ export default class SimulationContainer extends Component {
         }
       } else if (this.props.match.params.var2 === "edit" && this.props.match.params.var3 != null) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/recipe/get?id=' + this.props.match.params.var3);
+        xhr.open('GET', '/drinks/get?id=' + this.props.match.params.var3);
         // let local_this = this;
         xhr.onload = function (e) {
           // do something to response
@@ -142,11 +142,11 @@ export default class SimulationContainer extends Component {
         };
         xhr.send();
       }
-    } else if (this.props.match.params.var1 === "simulation") {
+    } else if (this.props.match.params.var1 === "tests") {
       var globalThis = this;
       if (this.props.match.params.var2 != null) {
         var xhrSim = new XMLHttpRequest();
-        xhrSim.open('GET', '/simulation/get?id=' + this.props.match.params.var2);
+        xhrSim.open('GET', '/tests/get?id=' + this.props.match.params.var2);
         xhrSim.onload = function () {
           if (this.status == 200) {
             let simulationJson = JSON.parse(this.responseText);
@@ -156,7 +156,7 @@ export default class SimulationContainer extends Component {
             if (simulationJson.recipes != null) {
               for (var i = 0; i < simulationJson.recipes.length; i++) {
                 var xhr2 = new XMLHttpRequest();
-                xhr2.open('GET', '/recipe/get?id=' + simulationJson.recipes[i]);
+                xhr2.open('GET', '/drinks/get?id=' + simulationJson.recipes[i]);
                 xhr2.onload = function () {
                   if (this.status === 200) {
                     try {
@@ -174,7 +174,7 @@ export default class SimulationContainer extends Component {
               }
             }
             else {
-              console.log("Simulation does not contain any recipes");
+              console.log("Test does not contain any recipes");
             }
           }else {
             globalThis.sendSimulationMessage("This isnt a valid simulation, recopy the link and try again.")
@@ -269,13 +269,13 @@ export default class SimulationContainer extends Component {
     formData.append('public', data.public);
     formData.append('json', JSON.stringify(outputJson));
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/recipe/add');
+    xhr.open('POST', '/drinks/add');
     var parent = this
     console.log(formData.entries());
     xhr.onload = function () {
       // console.log(this)
       if (this.status == 201) {
-        parent.props.history.push("/results/recipe/add/success");
+        parent.props.history.push("/results/drinks/add/success");
       } else {
         parent.sendMessage("Error: " + this.status + " when sending recipe to server");
       }
@@ -457,7 +457,7 @@ export default class SimulationContainer extends Component {
     formData.append("id", this.props.match.params.var2);
     formData.append("grade", (totalRecipesCorrect * pointsForEachRecipe));
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/simulation/grade/add');
+    xhr.open('POST', '/tests/grade/add');
     var globalThis = this;
     xhr.onload = function () {
       globalThis.setState({ grade: (totalRecipesCorrect * pointsForEachRecipe) });

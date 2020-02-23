@@ -10,7 +10,7 @@ public class TestResult {
     @Id
     private String id;
 
-    private String simulationId;
+    private String testId;
 
     private String userId;
 
@@ -19,11 +19,11 @@ public class TestResult {
     private String jsonGrades;
 
     public String getSimulationId() {
-        return simulationId;
+        return testId;
     }
 
     public void setSimulationId(String simulationId) {
-        this.simulationId = simulationId;
+        this.testId = simulationId;
     }
 
     public String getId() {

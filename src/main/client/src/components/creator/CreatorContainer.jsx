@@ -71,7 +71,7 @@ export default class CreatorContainer extends Component {
         var responseObject = null;
         try {
           responseObject = JSON.parse(this.responseText)
-          globalThis.setState({ recipes: responseObject.recipes });
+          globalThis.setState({ drinks: responseObject.drinks });
         } catch (e) {
           console.error("Got Non JSON response from server");
         }
@@ -87,7 +87,7 @@ export default class CreatorContainer extends Component {
         var responseObject = null;
         try {
           responseObject = JSON.parse(this.responseText)
-          globalThis.setState({ simulations: responseObject.simulations });
+          globalThis.setState({ tests: responseObject.tests });
         } catch (e) {
           console.error("Got Non JSON response from server");
         }
@@ -122,7 +122,7 @@ export default class CreatorContainer extends Component {
     xhr.onload = function () {
       if (this.status == 200) {
         var newList = []
-        let recList = globalThis.state.recipes;
+        let recList = globalThis.state.drinks;
         for (var x of recList) {
           if (x.id != id) {
             newList.append(x);
@@ -175,11 +175,11 @@ export default class CreatorContainer extends Component {
           <Switch>
             
           <Route exact path="/creator/" render={(props) => <TestDetails {...props} />} />
-            {/* <Route exact path="/creator/" render={(props) => <TestOverview {...props} />} />
+            <Route exact path="/creator/" render={(props) => <TestOverview {...props} />} />
             <Route exact path="/creator/test-overview" render={(props) => <TestOverview {...props} />} />
-            <Route exact path="/creator/test-new" render={(props) => <TestNew {...props} />} />
+            <Route exact path="/creator/test-new" render={(props) => <TestNew {...props} drinks={this.state.drinks}/>} />
             <Route exact path="/creator/test-results" render={(props) => <TestResultsDetailed {...props} />} />
-            <Route path="/creator/test-details/?:var1" render={(props) => <TestDetails {...props} />} /> */}
+            <Route path="/creator/test-details/?:var1" render={(props) => <TestDetails {...props} />} />
           </Switch>
         </Router>
       </React.Fragment>

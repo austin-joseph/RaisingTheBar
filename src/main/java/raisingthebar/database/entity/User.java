@@ -19,6 +19,8 @@ public class User {
     @DBRef
     private Set<Role> roles;
     private String resetToken;
+    
+    private String[] testsAssigned;
 
     public String getId() {
         return id;
@@ -69,8 +71,11 @@ public class User {
         this.resetToken = resetToken;
     }
 
-    
-    
-    
+    public void setTestsAssigned(String[] testsAssigned) {
+        this.testsAssigned = testsAssigned;
+    }
 
+    public String[] getTestsAssigned() {
+        return testsAssigned;
+    } 
 }

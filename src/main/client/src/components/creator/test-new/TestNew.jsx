@@ -6,21 +6,7 @@ export default class TestNew extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedDrinks: [],
-			drinks: [
-				{
-					name: "Water",
-					desc: "Best drink in the world"
-				},
-				{
-					name: "Sugar Water",
-					desc: "Second best drink in the world"
-				},
-				{
-					name: "Salted Water",
-					desc: "Third best drink in the world"
-				}
-			]
+			selectedDrinks: []
 		}
 
 		this.addDrink = this.addDrink.bind(this);
@@ -59,7 +45,7 @@ export default class TestNew extends Component {
 								</tr>
 							</thead>
 							<tbody>
-								{this.state.drinks.map((item) => {
+								{this.props.drinks.map((item) => {
 									return (<tr>
 										<td>{item.name}</td>
 										<td>{item.desc}</td>

@@ -29,7 +29,7 @@ public class DrinkController {
     @Autowired
     private CustomUserDetailsService userService;
 
-    @RequestMapping(value = "/drink/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/drinks/get", method = RequestMethod.GET)
     public ResponseEntity getDrink(@RequestParam("id") String drinkId) {
         Drink rec = drinkService.findDrinkById(drinkId);
         if (rec != null) {
@@ -38,7 +38,7 @@ public class DrinkController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    @RequestMapping(value = "/drink/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/drinks/add", method = RequestMethod.POST)
     public ResponseEntity addDrink(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("public") boolean isPublic, @RequestParam("json") String json) {
         User user = userService.getLoggedUser();
         if (user != null) {
@@ -55,7 +55,7 @@ public class DrinkController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
-    @RequestMapping(value = "/drink/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/drinks/delete", method = RequestMethod.POST)
     public ResponseEntity deleteDrink(@RequestParam("id") String drinkId) {
         User user = userService.getLoggedUser();
         if (user != null) {
@@ -76,7 +76,7 @@ public class DrinkController {
         }
     }
 
-    @RequestMapping(value = "/drink/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/drinks/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findAllDrinks() {
         ObjectMapper mapper = new ObjectMapper();
         User user = userService.getLoggedUser();
@@ -89,7 +89,7 @@ public class DrinkController {
                     approvedList.add(r);
                 }
             }
-            outputMap.put("recipes", approvedList);
+            outputMap.put("drinks", approvedList);
             String output = mapper.writeValueAsString(outputMap);
             return ResponseEntity.status(HttpStatus.OK).body(output);
         } catch (JsonProcessingException e) {
