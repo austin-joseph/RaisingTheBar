@@ -112,6 +112,7 @@ export default class CreatorContainer extends Component {
     }
     this.deleteDrinkCallback = this.deleteDrinkCallback.bind(this);
     this.deleteTestsCallback = this.deleteTestsCallback.bind(this);
+    this.submitNewTest = this.submitNewTest.bind(this);
   }
   deleteDrinkCallback(id) {
     var xhr = new XMLHttpRequest();
@@ -159,25 +160,32 @@ export default class CreatorContainer extends Component {
     xhr.send(formData);
   }
 
+  submitNewTest(selectedDrinks, name, desc, isPractice, isPublic) {
+    console.log(selectedDrinks);
+    console.log(name);
+    console.log(desc);
+    console.log(isPractice);
+    console.log(isPublic);
+
+  }
   render() {
     return (
       <React.Fragment>
         <NavigationBar />
         <div id={"sub-navbar"}>
           <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Tests YOU Admininister </a></div>
-          <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Tests youve been assgined</a></div>
-          <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Your test results</a></div>
+          {/* <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Tests youve been assgined</a></div> */}
+          {/* <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Your test results</a></div> */}
           <div className={"sub-navbar-item"}><a href="/creator/test-new"> Create A New Test </a></div>
           <div className={"sub-navbar-item"}><a href="/bartop/recipe/add"> Create A New Drink </a></div>
         </div>
 
         <Router>
           <Switch>
-            
-          <Route exact path="/creator/" render={(props) => <TestDetails {...props} />} />
+            <Route exact path="/creator/" render={(props) => <TestDetails {...props} />} />
             <Route exact path="/creator/" render={(props) => <TestOverview {...props} />} />
-            <Route exact path="/creator/test-overview" render={(props) => <TestOverview {...props} />} />
-            <Route exact path="/creator/test-new" render={(props) => <TestNew {...props} drinks={this.state.drinks}/>} />
+            <Route exact path="/creator/test-overview" render={(props) => <TestOverview {...props} tests={this.state.tests} />} />
+            <Route exact path="/creator/test-new" render={(props) => <TestNew {...props} drinks={this.state.drinks} submitNewTest={this.submitNewTest} />} />
             <Route exact path="/creator/test-results" render={(props) => <TestResultsDetailed {...props} />} />
             <Route path="/creator/test-details/?:var1" render={(props) => <TestDetails {...props} />} />
           </Switch>
