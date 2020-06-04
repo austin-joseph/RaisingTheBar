@@ -160,7 +160,7 @@ export default class CreatorContainer extends Component {
     xhr.send(formData);
   }
 
-  submitNewTest(selectedDrinks, name, desc, isPractice, isPublic) {
+  submitNewTest(selectedDrinks, name, desc, isPractice, isPublic, onSubmitFinishCallback) {
     // console.log(selectedDrinks);
     // console.log(name);
     // console.log(desc);
@@ -189,13 +189,13 @@ export default class CreatorContainer extends Component {
     // formData.append("json", selectedDrinks);
     var globalThis = this
     xhr.onload = function () {
+      onSubmitFinishCallback(this.status)
+      // if (this.status === 200) {
 
-      if (this.status === 200) {
-
-        console.log("Got  response code " + this.status + " when trying to add test");
-      } else {
-        console.log("Got error response code " + this.status + " when trying to add test");
-      }
+      //   console.log("Got  response code " + this.status + " when trying to add test");
+      // } else {
+      //   console.log("Got error response code " + this.status + " when trying to add test");
+      // }
     };
     xhr.send(formData);
 

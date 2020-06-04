@@ -10,7 +10,8 @@ export default class TestNew extends Component {
 			name: "",
 			desc: "",
 			isPractice: false,
-			isPublic: false
+			isPublic: false,
+			errorLog: []
 		}
 
 		this.addDrink = this.addDrink.bind(this);
@@ -18,6 +19,14 @@ export default class TestNew extends Component {
 		this.submitTest = this.submitTest.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.submitTest = this.submitTest.bind(this);
+		this.onSubmitFinishCallback = this.onSubmitFinishCallback.bind(this);
+		this.addError = this.addError.bind(this);
+		this.deleteError = this.deleteError.bind(this);
+
+		if (props.drinks.length == 0) {
+			this.addError("noDrinks", "You dont have any drinks, make some before you create a test")			
+			
+		}
 	}
 	addDrink(drink) {
 		let selectedDrinkList = this.state.selectedDrinks;
@@ -35,12 +44,69 @@ export default class TestNew extends Component {
 		this.setState({ [thingChanged]: event.target.type == "checkbox" ? event.target.checked : event.target.value });
 	}
 	submitTest() {
-		this.props.submitNewTest(this.state.selectedDrinks, this.state.name, this.state.desc, this.state.isPractice, this.state.isPublic);
+		var errored = false;
+
+		if (this.state.selectedDrinks.length <= 0) {
+			this.addError("noDrinks", "You havent added any drinks to the test");
+			errored = true;
+		}
+		if (this.state.name == null || this.state.name == "") {
+			this.addError("noName", "Please give the test a name");
+			errored = true;
+		}
+		if (this.state.desc == null || this.state.desc == "") {
+			this.addError("noDest", "Please give the test a description");
+			errored = true;
+		}
+		if (errored == false) {
+			this.props.submitNewTest(this.state.selectedDrinks, this.state.name, this.state.desc, this.state.isPractice, this.state.isPublic, this.onSubmitFinishCallback);
+		}
+	}
+
+	onSubmitFinishCallback(responseCode) {
+		console.log(responseCode);
+		this.addError("communicationError", "Test could not be saved at this time please try again later. (" + responseCode + " Error)")
+	}
+
+	addError(tag, text) {
+		var tempErrorLog = this.state.errorLog;
+		for (var i = 0; i < tempErrorLog.length; i++) {
+			if (tempErrorLog[i][0] == tag) {
+				return;
+			}
+		}
+		tempErrorLog.push([tag, text]);
+		this.setState({ errorLog: tempErrorLog })
+	}
+
+	deleteError(tag) {
+		var tempErrorLog = this.state.errorLog;
+		for (var i = 0; i < tempErrorLog.length; i++) {
+			if (tempErrorLog[i][0] == tag) {
+				tempErrorLog.splice(i, 1);
+				break;
+			}
+		}
+		this.setState({ errorLog: tempErrorLog })
 	}
 	render() {
 		return (
 			<React.Fragment>
+				<div id={"errorLog"}>
+
+					{this.state.errorLog.map((item) => {
+						return (
+							<div className={"errorItem"}>
+								<div className={"errorText"}>{item[1]}</div>
+								<div className={"errorDelete"} onClick={this.deleteError.bind(this, item[0])}><button>X</button></div>
+							</div>
+						)
+					})}
+				</div>
 				<div id={"parent"}>
+
+
+
 					<div id={"left"}>
 
 						<div className={"title"}>Drinks</div>
@@ -50,7 +116,7 @@ export default class TestNew extends Component {
 								<tr>
 									<th>Drink Name</th>
 									<th>Drink Description</th>
-									<th>Add</th>
+									{/* <th>Add</th> */}
 								</tr>
 							</thead>
 							<tbody>
