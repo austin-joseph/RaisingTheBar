@@ -161,11 +161,43 @@ export default class CreatorContainer extends Component {
   }
 
   submitNewTest(selectedDrinks, name, desc, isPractice, isPublic) {
-    console.log(selectedDrinks);
-    console.log(name);
-    console.log(desc);
-    console.log(isPractice);
-    console.log(isPublic);
+    // console.log(selectedDrinks);
+    // console.log(name);
+    // console.log(desc);
+    // console.log(isPractice);
+    // console.log(isPublic);
+
+    var outputObject = {
+      "drinks": selectedDrinks,
+      "name": name,
+      "description": desc,
+      "public": isPractice,
+      "practice": isPublic
+    };
+    var outputJson = JSON.stringify(outputObject);
+    console.log(outputJson)
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/tests/add');
+    var formData = new FormData()
+    formData.append("drinks", selectedDrinks);
+    formData.append("name", name);
+    formData.append("description", desc);
+    formData.append("public", isPractice);
+    formData.append("practice", isPublic);
+    formData.append("json", outputJson);
+    // formData.append("json", selectedDrinks);
+    var globalThis = this
+    xhr.onload = function () {
+
+      if (this.status === 200) {
+
+        console.log("Got  response code " + this.status + " when trying to add test");
+      } else {
+        console.log("Got error response code " + this.status + " when trying to add test");
+      }
+    };
+    xhr.send(formData);
 
   }
   render() {

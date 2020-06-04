@@ -31,7 +31,7 @@ export default class TestNew extends Component {
 		this.setState({ selectedDrinks: selectedDrinkList })
 	}
 	handleChange(thingChanged, event) {
-		console.log({ [thingChanged]: event.target.type == "checkbox" ? event.target.checked : event.target.value })
+		// console.log({ [thingChanged]: event.target.type == "checkbox" ? event.target.checked : event.target.value })
 		this.setState({ [thingChanged]: event.target.type == "checkbox" ? event.target.checked : event.target.value });
 	}
 	submitTest() {
