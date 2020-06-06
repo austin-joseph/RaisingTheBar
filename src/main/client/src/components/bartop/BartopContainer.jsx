@@ -14,7 +14,7 @@ import NoMatch from '../NoMatch';
 import './BartopContainer.scss';
 import ingredientsJsonFile from "../../assets/ingredients.json"
 
-export default class SimulationContainer extends Component {
+export default class BartopContainer extends Component {
   constructor(props) {
     super(props);
     var otherIngredients = [];
@@ -106,9 +106,9 @@ export default class SimulationContainer extends Component {
       submode: this.props.match.params.var2,
       data: {}
     }
-    if (this.props.match.params.var1 === "recipe") {
+    if (this.props.match.params.var1 === "drink") {
 
-      if (this.props.match.params.var2 === "add") {
+      if (this.props.match.params.var2 === "new") {
         mode.data = {
           name: "",
           description: ""
@@ -142,7 +142,7 @@ export default class SimulationContainer extends Component {
         };
         xhr.send();
       }
-    } else if (this.props.match.params.var1 === "tests") {
+    } else if (this.props.match.params.var1 === "test") {
       var globalThis = this;
       if (this.props.match.params.var2 != null) {
         var xhrSim = new XMLHttpRequest();
@@ -153,10 +153,10 @@ export default class SimulationContainer extends Component {
             if (simulationJson.isPractice) {
               globalThis.setPractice();
             }
-            if (simulationJson.recipes != null) {
-              for (var i = 0; i < simulationJson.recipes.length; i++) {
+            if (simulationJson.drinkIds != null) {
+              for (var i = 0; i < simulationJson.drinkIds.length; i++) {
                 var xhr2 = new XMLHttpRequest();
-                xhr2.open('GET', '/drinks/get?id=' + simulationJson.recipes[i]);
+                xhr2.open('GET', '/drinks/get?id=' + simulationJson.drinkIds[i]);
                 xhr2.onload = function () {
                   if (this.status === 200) {
                     try {
@@ -174,9 +174,9 @@ export default class SimulationContainer extends Component {
               }
             }
             else {
-              console.log("Test does not contain any recipes");
+              console.log("Test does not contain any drinks");
             }
-          }else {
+          } else {
             globalThis.sendSimulationMessage("This isnt a valid simulation, recopy the link and try again.")
           }
         };
@@ -898,8 +898,8 @@ export default class SimulationContainer extends Component {
             <div id="sidebar-right">
               <Router>
                 <Switch>
-                  <Route path="*/recipe" render={() => <RecipeRightPanel selectedSlot={this.state.selectedSlot} messageLog={this.state.messageLog} onSubmitCallback={this.submitRecipeCallback} mode={this.state.mode} />} />
-                  <Route path="*/simulation" render={() => <SimulationRightPanel mode={this.state.mode} simulationLog={this.state.simulationLog} onSubmitRecipeCallback={this.submitRecipeGradingCallback} onSubmitSimulationCallback={this.submitSimulationGradingCallback} getRecIngredients={this.getRecIngredients} globalState={this.state} recipeQueue={this.state.recipeQueue} completedRecipes={this.state.completedRecipes} />} />
+                  <Route path="*/drink" render={() => <RecipeRightPanel selectedSlot={this.state.selectedSlot} messageLog={this.state.messageLog} onSubmitCallback={this.submitRecipeCallback} mode={this.state.mode} />} />
+                  <Route path="*/test" render={() => <SimulationRightPanel mode={this.state.mode} simulationLog={this.state.simulationLog} onSubmitRecipeCallback={this.submitRecipeGradingCallback} onSubmitSimulationCallback={this.submitSimulationGradingCallback} getRecIngredients={this.getRecIngredients} globalState={this.state} recipeQueue={this.state.recipeQueue} completedRecipes={this.state.completedRecipes} />} />
                   <Route component={NoMatch} />
                 </Switch>
               </Router>

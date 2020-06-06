@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Table } from "react-bootstrap";
-import './TestResultsDetailed.scss';
+import './TestResults.scss';
 
-export default class TestResultsDetailed extends Component {
+export default class TestResults extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

@@ -17,20 +17,27 @@
     }
 }
 
-#parent {
+#test-new {
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 60%;
+    width: 80%;
     .title {
         font-weight: bold;
         font-size: larger;
+        font-size: 1vw;
+        margin: auto;
+        text-align: center;
     }
     #left,
     #right {
         border-color: black;
         border-style: groove;
         padding: 25px;
+    }
+    .displayNone {
+        display: none;
     }
 }
 

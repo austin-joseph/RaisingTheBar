@@ -8,12 +8,12 @@ export default class TestNew extends Component {
 		this.state = {
 			selectedDrinks: [],
 			name: "",
-			desc: "",
+			description: "",
 			isPractice: false,
 			isPublic: false,
-			errorLog: []
+			errorLog: [],
+			mode: "new"
 		}
-
 		this.addDrink = this.addDrink.bind(this);
 		this.removeDrink = this.removeDrink.bind(this);
 		this.submitTest = this.submitTest.bind(this);
@@ -22,11 +22,39 @@ export default class TestNew extends Component {
 		this.onSubmitFinishCallback = this.onSubmitFinishCallback.bind(this);
 		this.addError = this.addError.bind(this);
 		this.deleteError = this.deleteError.bind(this);
+	}
 
-		if (props.drinks.length == 0) {
-			this.addError("noDrinks", "You dont have any drinks, make some before you create a test")			
-			
+	static getDerivedStateFromProps(props, state) {
+		if (props.match.params.testId != null && state.id == null) {
+			var targetTest = null;
+			for (var i = 0; i < props.tests.length; i++) {
+				if (props.tests[i] != null && props.tests[i].id === props.match.params.testId) {
+					targetTest = props.tests[i];
+					break;
+				}
+			}
+			if (targetTest != null) {
+				var newState = {};
+				newState.id = targetTest.id;
+				newState.mode = "edit";
+				newState.name = targetTest.name;
+				newState.description = targetTest.description;
+				newState.isPractice = targetTest.isPractice;
+				newState.isPublic = targetTest.isPublic;
+				var selectedDrinks = [];
+				for (var i = 0; i < targetTest.drinkIds.length; i++) {
+					for (var j = 0; j < props.drinks.length; j++) {
+						if (props.drinks[j].id === targetTest.drinkIds[i]) {
+							selectedDrinks.push(props.drinks[j]);
+							break;
+						}
+					}
+				}
+				newState.selectedDrinks = selectedDrinks;
+				return newState;
+			}
 		}
+		return null;
 	}
 	addDrink(drink) {
 		let selectedDrinkList = this.state.selectedDrinks;
@@ -54,18 +82,31 @@ export default class TestNew extends Component {
 			this.addError("noName", "Please give the test a name");
 			errored = true;
 		}
-		if (this.state.desc == null || this.state.desc == "") {
+		if (this.state.description == null || this.state.description == "") {
 			this.addError("noDest", "Please give the test a description");
 			errored = true;
 		}
 		if (errored == false) {
-			this.props.submitNewTest(this.state.selectedDrinks, this.state.name, this.state.desc, this.state.isPractice, this.state.isPublic, this.onSubmitFinishCallback);
+
+			var outputDrinkIds = [];
+			for (var i = 0; i < this.state.selectedDrinks.length; i++) {
+				outputDrinkIds.push(this.state.selectedDrinks[i].id);
+			}
+			if (this.state.mode === "new") {
+				this.props.submitNewTest(outputDrinkIds, this.state.name, this.state.description, this.state.isPractice, this.state.isPublic, this.onSubmitFinishCallback);
+			} else if (this.state.mode === "edit") {
+				this.props.submitEditedTest(this.state.id, outputDrinkIds, this.state.name, this.state.description, this.state.isPractice, this.state.isPublic, this.onSubmitFinishCallback);
+			}
 		}
 	}
 
-	onSubmitFinishCallback(responseCode) {
-		console.log(responseCode);
-		this.addError("communicationError", "Test could not be saved at this time please try again later. (" + responseCode + " Error)")
+	onSubmitFinishCallback(response) {
+		if (response.status != 200) {
+			console.log(response.status);
+			this.addError("communicationError", "Test could not be saved at this time please try again later. (" + response.status + " Error)")
+		} else {
+			this.props.history.push('/creator/test/overview')
+		}
 	}
 
 	addError(tag, text) {
@@ -103,10 +144,7 @@ export default class TestNew extends Component {
 						)
 					})}
 				</div>
-				<div id={"parent"}>
-
-
-
+				<div id={"test-new"}>
 					<div id={"left"}>
 
 						<div className={"title"}>Drinks</div>
@@ -123,14 +161,13 @@ export default class TestNew extends Component {
 								{this.props.drinks.map((item) => {
 									return (<tr>
 										<td>{item.name}</td>
-										<td>{item.desc}</td>
+										<td>{item.description}</td>
 										<td><button onClick={this.addDrink.bind(this, item)}>Add</button></td>
 									</tr>)
 								})}
 							</tbody>
 						</Table>
 					</div>
-
 					<div id={"right"}>
 						<div className={"title"}>Drinks In Test</div>
 						<Table striped bordered hover>
@@ -145,14 +182,14 @@ export default class TestNew extends Component {
 								{this.state.selectedDrinks.map((item, index) => {
 									return (<tr>
 										<td>{item.name}</td>
-										<td>{item.desc}</td>
+										<td>{item.description}</td>
 										<td><button onClick={this.removeDrink.bind(this, index)}>Remove</button></td>
 									</tr>)
 								})}
-								<tr>Name: <input type="text" value={this.state.name} onChange={this.handleChange.bind(this, "name")}></input></tr>
-								<tr>Description: <input type="text" value={this.state.desc} onChange={this.handleChange.bind(this, "desc")}></input></tr>
-								<tr>Public: <input type="checkbox" checked={this.state.isPublic} onChange={this.handleChange.bind(this, "isPublic")}></input></tr>
-								<tr>Practice: <input type="checkbox" checked={this.state.isPractice} onChange={this.handleChange.bind(this, "isPractice")}></input></tr>
+								<tr><td>Name: <input type="text" value={this.state.name} onChange={this.handleChange.bind(this, "name")}></input></td></tr>
+								<tr><td>Description: <input type="text" value={this.state.description} onChange={this.handleChange.bind(this, "description")}></input></td></tr>
+								<tr><td>Public: <input type="checkbox" checked={this.state.isPublic} onChange={this.handleChange.bind(this, "isPublic")}></input></td></tr>
+								<tr><td>Practice: <input type="checkbox" checked={this.state.isPractice} onChange={this.handleChange.bind(this, "isPractice")}></input></td></tr>
 							</tbody>
 						</Table>
 						<button onClick={this.submitTest.bind(this)}>Submit</button>
