@@ -40,17 +40,8 @@ export default class TestNew extends Component {
 				newState.name = targetTest.name;
 				newState.description = targetTest.description;
 				newState.isPractice = targetTest.isPractice;
-				newState.isPublic = targetTest.isPublic;
-				var selectedDrinks = [];
-				for (var i = 0; i < targetTest.drinkIds.length; i++) {
-					for (var j = 0; j < props.drinks.length; j++) {
-						if (props.drinks[j].id === targetTest.drinkIds[i]) {
-							selectedDrinks.push(props.drinks[j]);
-							break;
-						}
-					}
-				}
-				newState.selectedDrinks = selectedDrinks;
+				newState.isPublic = targetTest.isPublic;				
+				newState.selectedDrinks = targetTest.drinks;
 				return newState;
 			}
 		}

@@ -47,6 +47,8 @@ export default class CreatorContainer extends Component {
         //   creator: "5df95047f68021bf989758dd"
         // }
       ],
+      testsLoaded: false,
+      drinksLoaded: false
     };
     this.deleteDrink = this.deleteDrink.bind(this);
     this.deleteTest = this.deleteTest.bind(this);
@@ -55,11 +57,54 @@ export default class CreatorContainer extends Component {
     this.pullTests = this.pullTests.bind(this);
     this.pullUser = this.pullUser.bind(this);
 
+    this.mapDrinksToTests = this.mapDrinksToTests.bind(this);
+
     this.pullDrinks();
     this.pullTests();
     this.pullUser();
   }
+  mapDrinksToTests(tests, drinks) {
 
+    if (!this.state.testsLoaded && !this.state.drinksLoaded) {
+      if (tests === null) {
+        this.setState({
+          drinks: drinks,
+          drinksLoaded: true
+        });
+      } else {
+        this.setState({
+          tests: tests,
+          testsLoaded: true
+        });
+      }
+      return;
+    }
+    if (tests === null) {
+      tests = this.state.tests;
+    }
+    if (drinks === null) {
+      drinks = this.state.drinks;
+    }
+    if (tests.length > 0 && drinks.length > 0) {
+      for (var testIndex = 0; testIndex < tests.length; testIndex++) {
+        for (var testDrinkIdIndex = 0; testDrinkIdIndex < tests[testIndex].drinkIds.length; testDrinkIdIndex++) {
+          var drinksInTest = [];
+          for (var drinkIndex = 0; drinkIndex < drinks.length; drinkIndex++) {
+            if (tests[testIndex].drinkIds[testDrinkIdIndex] === drinks[drinkIndex].id) {
+              drinksInTest.push(drinks[drinkIndex]);
+            }
+          }
+          tests[testIndex].drinks = drinksInTest;
+        }
+      }
+      this.setState({
+        tests: tests,
+        drinks: drinks,
+        drinksLoaded: true,
+        testsLoaded: true
+      });
+    }
+  }
   pullDrinks() {
     let globalThis = this;
     let xhr = new XMLHttpRequest();
@@ -67,8 +112,10 @@ export default class CreatorContainer extends Component {
     xhr.onload = function () {
       var responseObject = null;
       try {
-        responseObject = JSON.parse(this.responseText)
-        globalThis.setState({ drinks: responseObject.drinks });
+        responseObject = JSON.parse(this.responseText);
+        console.log("Drinks");
+        console.log(responseObject.drinks);
+        globalThis.mapDrinksToTests(null, responseObject.drinks);
       } catch (e) {
         console.log("Got non JSON response with error response code " + this.status + " when trying to get current user's drink list");
       }
@@ -82,7 +129,9 @@ export default class CreatorContainer extends Component {
     xhr.onload = function () {
       try {
         var responseObject = JSON.parse(this.responseText)
-        globalThis.setState({ tests: responseObject.tests });
+        console.log("Tests");
+        console.log(responseObject.tests);
+        globalThis.mapDrinksToTests(responseObject.tests, null);
       } catch (e) {
         console.log("Got non JSON response with error response code " + this.status + " when trying to get current user's test list");
       }
