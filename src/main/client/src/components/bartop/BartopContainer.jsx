@@ -266,7 +266,7 @@ export default class BartopContainer extends Component {
     var formData = new FormData();
     formData.append('name', data.name);
     formData.append('description', data.description);
-    formData.append('public', data.public);
+    formData.append('isPublic', data.public);
     formData.append('json', JSON.stringify(outputJson));
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/drinks/add');
