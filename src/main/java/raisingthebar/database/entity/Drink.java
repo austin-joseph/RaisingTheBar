@@ -1,6 +1,8 @@
 package raisingthebar.database.entity;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,13 +16,30 @@ public class Drink {
     private String description;
     private boolean isPublic;
 
-    private Date date;
+    private Date dateCreated;
 
+    //id of the creator's user account
     private String creator;
 
     private String json;
 
     private boolean hidden = false;
+
+    public Map<String, Object> convertToMap() {
+
+        Map<String, Object> outputMap = new HashMap<>();
+
+        outputMap.put("id", id);
+        outputMap.put("name", name);
+        outputMap.put("description", description);
+        outputMap.put("isPublic", isPublic);
+
+        outputMap.put("dateCreated", dateCreated);
+
+        outputMap.put("creator", creator);
+        outputMap.put("json", json);
+        return outputMap;
+    }
 
     public String getId() {
         return id;
@@ -62,12 +81,12 @@ public class Drink {
         this.creator = creator;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateCreated(Date date) {
+        this.dateCreated = date;
     }
 
     public void setJson(String json) {

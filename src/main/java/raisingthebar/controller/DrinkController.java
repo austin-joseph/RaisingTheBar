@@ -39,8 +39,8 @@ public class DrinkController {
     }
 
     @RequestMapping(value = "/drinks/add", method = RequestMethod.POST)
-    public ResponseEntity addDrink(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("public") boolean isPublic, @RequestParam("json") String json) {
-        User user = userService.getLoggedUser();
+    public ResponseEntity addDrink(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("isPublic") boolean isPublic, @RequestParam("json") String json) {
+        User user = userService.getLoggedInUser();
         if (user != null) {
             Drink recipe = new Drink();
             recipe.setName(name);
@@ -48,7 +48,7 @@ public class DrinkController {
             recipe.setIsPublic(isPublic);
             recipe.setCreator(user.getId());
             recipe.setJson(json);
-            recipe.setDate(new Date());
+            recipe.setDateCreated(new Date());
             drinkService.saveDrink(recipe);
             return ResponseEntity.status(HttpStatus.CREATED).body(recipe);
         }
@@ -57,7 +57,7 @@ public class DrinkController {
 
     @RequestMapping(value = "/drinks/delete", method = RequestMethod.POST)
     public ResponseEntity deleteDrink(@RequestParam("id") String drinkId) {
-        User user = userService.getLoggedUser();
+        User user = userService.getLoggedInUser();
         if (user != null) {
             Drink rec = drinkService.findDrinkById(drinkId);
             if (rec != null) {
@@ -79,7 +79,7 @@ public class DrinkController {
     @RequestMapping(value = "/drinks/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findAllDrinks() {
         ObjectMapper mapper = new ObjectMapper();
-        User user = userService.getLoggedUser();
+        User user = userService.getLoggedInUser();
         try {
             Map outputMap = new HashMap();
             List<Drink> recipeList = drinkService.getAllDrinks();

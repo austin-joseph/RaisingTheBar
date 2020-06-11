@@ -29,7 +29,7 @@ public class LoginController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity getCurrentUser() {
-        User user = userService.getLoggedUser();
+        User user = userService.getLoggedInUser();
         if (user != null) {
             ObjectMapper mapper = new ObjectMapper();
             Map outputMap = new HashMap();
