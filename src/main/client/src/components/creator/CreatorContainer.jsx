@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Nav, Navbar, Tabs, Tab } from 'react-bootstrap';
 import NavigationBar from "./../navbar/NavigationBar";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {BrowserRouter, Route, Switch } from 'react-router-dom';
 import './CreatorContainer.scss';
 
 import TestOverview from './test-overview/TestOverview';
@@ -108,7 +107,7 @@ export default class CreatorContainer extends Component {
   pullDrinks() {
     let globalThis = this;
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/drinks/list');
+    xhr.open('GET', './drinks/list');
     xhr.onload = function () {
       var responseObject = null;
       try {
@@ -125,7 +124,7 @@ export default class CreatorContainer extends Component {
   pullTests() {
     let globalThis = this;
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/tests/list/mine');
+    xhr.open('GET', './tests/list/mine');
     xhr.onload = function () {
       try {
         var responseObject = JSON.parse(this.responseText)
@@ -142,7 +141,7 @@ export default class CreatorContainer extends Component {
     let globalThis = this;
 
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/user');
+    xhr.open('GET', './user');
     xhr.onload = function () {
       var responseObject = null;
       try {
@@ -156,7 +155,7 @@ export default class CreatorContainer extends Component {
   }
   deleteDrink(id) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/drinks/delete');
+    xhr.open('POST', './drinks/delete');
     var formData = new FormData()
     formData.append("id", id);
     var globalThis = this
@@ -171,7 +170,7 @@ export default class CreatorContainer extends Component {
   }
   deleteTest(id) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/tests/delete');
+    xhr.open('POST', './tests/delete');
     var formData = new FormData()
     formData.append("id", id);
     var globalThis = this
@@ -187,7 +186,7 @@ export default class CreatorContainer extends Component {
 
   submitNewTest(selectedDrinks, name, desc, isPractice, isPublic, onSubmitFinishCallback) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/tests/add');
+    xhr.open('POST', './tests/add');
     var formData = new FormData()
     formData.append("name", name);
     formData.append("description", desc);
@@ -207,7 +206,7 @@ export default class CreatorContainer extends Component {
 
   submitEditedTest(id, selectedDrinks, name, desc, isPractice, isPublic, onSubmitFinishCallback) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/tests/edit');
+    xhr.open('POST', './tests/edit');
     var formData = new FormData()
     formData.append("id", id);
     formData.append("name", name);
@@ -230,23 +229,23 @@ export default class CreatorContainer extends Component {
       <React.Fragment>
         <NavigationBar />
         <div id={"creator-container-sub-navbar"}>
-          <div className={"sub-navbar-item"}><a href="/creator/test/overview"> Tests YOU Admininister </a></div>
+          <div className={"sub-navbar-item"}><a href="./creator/test/overview"> Tests YOU Admininister </a></div>
           {/* <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Tests youve been assgined</a></div> */}
           {/* <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Your test results</a></div> */}
-          <div className={"sub-navbar-item"}><a href="/creator/test/new"> Create A New Test </a></div>
-          <div className={"sub-navbar-item"}><a href="/bartop/drink/new"> Create A New Drink </a></div>
+          <div className={"sub-navbar-item"}><a href="./creator/test/new"> Create A New Test </a></div>
+          <div className={"sub-navbar-item"}><a href="../bartop/drink/new"> Create A New Drink </a></div>
         </div>
 
-        <Router>
+        <BrowserRouter>
           <Switch>
-            <Route exact path="/creator/" render={(props) => <TestOverview {...props} tests={this.state.tests} deleteTest={this.deleteTest} />} />
-            <Route exact path="/creator/test/overview" render={(props) => <TestOverview {...props} tests={this.state.tests} deleteTest={this.deleteTest} />} />
-            <Route exact path="/creator/test/new" render={(props) => <TestNew {...props} drinks={this.state.drinks} submitNewTest={this.submitNewTest} />} />
-            <Route exact path="/creator/test/edit/:testId?" render={(props) => <TestNew {...props} tests={this.state.tests} drinks={this.state.drinks} submitEditedTest={this.submitEditedTest} />} />
-            <Route exact path="/creator/test/results/:testId?" render={(props) => <TestResults {...props} tests={this.state.tests} />} />
-            <Route exact path="/creator/test/details/:testId?" render={(props) => <TestDetails {...props} tests={this.state.tests} />} />
+            <Route exact path="*/creator/" render={(props) => <TestOverview {...props} tests={this.state.tests} deleteTest={this.deleteTest} />} />
+            <Route exact path="*/creator/test/overview" render={(props) => <TestOverview {...props} tests={this.state.tests} deleteTest={this.deleteTest} />} />
+            <Route exact path="*/creator/test/new" render={(props) => <TestNew {...props} drinks={this.state.drinks} submitNewTest={this.submitNewTest} />} />
+            <Route exact path="*/creator/test/edit/:testId?" render={(props) => <TestNew {...props} tests={this.state.tests} drinks={this.state.drinks} submitEditedTest={this.submitEditedTest} />} />
+            <Route exact path="*/creator/test/results/:testId?" render={(props) => <TestResults {...props} tests={this.state.tests} />} />
+            <Route exact path="*/creator/test/details/:testId?" render={(props) => <TestDetails {...props} tests={this.state.tests} />} />
           </Switch>
-        </Router>
+        </BrowserRouter>
       </React.Fragment>
     )
   }

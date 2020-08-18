@@ -30,9 +30,9 @@ export default class TestOverview extends Component {
 									<td>{item.name}</td>
 									<td>{item.dateLastModified}</td>
 									<td><button onClick={this.onDeleteTestClick.bind(this, index)}>Delete</button></td>
-									<td>{<a href={"/creator/test/details/" + item.id}><button>Details</button> </a>}</td>
-									<td><a href={"/creator/test/results/" + item.id}><button>Results</button></a></td>
-									<td><a href={"/bartop/test/" + item.id}><button>Go To Test</button></a></td>
+									<td>{<a href={"./test/details/" + item.id}><button>Details</button> </a>}</td>
+									<td><a href={"./test/results/" + item.id}><button>Results</button></a></td>
+									<td><a href={"../bartop/test/" + item.id}><button>Go To Test</button></a></td>
 								</tr>)
 							}):""}
 						</tbody>

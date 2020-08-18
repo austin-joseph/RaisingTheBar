@@ -23,7 +23,6 @@ export default class TestNew extends Component {
 		this.addError = this.addError.bind(this);
 		this.deleteError = this.deleteError.bind(this);
 	}
-
 	static getDerivedStateFromProps(props, state) {
 		if (props.match.params.testId != null && state.id == null) {
 			var targetTest = null;
@@ -64,7 +63,6 @@ export default class TestNew extends Component {
 	}
 	submitTest() {
 		var errored = false;
-
 		if (this.state.selectedDrinks.length <= 0) {
 			this.addError("noDrinks", "You havent added any drinks to the test");
 			errored = true;
@@ -96,7 +94,7 @@ export default class TestNew extends Component {
 			console.log(response.status);
 			this.addError("communicationError", "Test could not be saved at this time please try again later. (" + response.status + " Error)")
 		} else {
-			this.props.history.push('/creator/test/overview')
+			this.props.history.push('./test/overview')
 		}
 	}
 

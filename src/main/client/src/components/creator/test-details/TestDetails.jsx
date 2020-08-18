@@ -9,10 +9,10 @@ export default class TestDetails extends Component {
 		this.goToEditDrink = this.goToEditDrink.bind(this);
 	}
 	goToEditTest() {
-		this.props.history.push('/creator/test/edit/' + this.props.match.params.testId)
+		this.props.history.push('./test/edit/' + this.props.match.params.testId)
 	}
 	goToEditDrink(drinkId) {
-		this.props.history.push('/bartop/drink/edit/' + drinkId)
+		this.props.history.push('../bartop/drink/edit/' + drinkId)
 	}
 	render() {
 
