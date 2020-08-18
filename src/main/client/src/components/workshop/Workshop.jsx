@@ -41,7 +41,7 @@ export default class Workshop extends Component {
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/tests/list', true);
+    xhr.open('GET', "./tests/list", true);
     var globalThis = this
     xhr.onload = function () {
       // do something to response

@@ -49,7 +49,7 @@ export default class TestDetails extends Component {
 								<td>{targetTest.dateLastModified}</td>
 								<td>{targetTest.isPublic.toString()}</td>
 								<td>{targetTest.isPractice.toString()}</td>
-								{/* <td><a href={"/creator/test-results/" + this.targetTest.id + "/" + item.id}><button>Details</button></a></td> */}
+								{/* <td><a href={"./creator/test-results/" + this.targetTest.id + "/" + item.id}><button>Details</button></a></td> */}
 							</tr>
 						</tbody>
 					</Table>

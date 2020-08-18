@@ -230,8 +230,8 @@ export default class CreatorContainer extends Component {
         <NavigationBar />
         <div id={"creator-container-sub-navbar"}>
           <div className={"sub-navbar-item"}><a href="./creator/test/overview"> Tests YOU Admininister </a></div>
-          {/* <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Tests youve been assgined</a></div> */}
-          {/* <div className={"sub-navbar-item"}><a href="/creator/test-overview"> Your test results</a></div> */}
+          {/* <div className={"sub-navbar-item"}><a href="./creator/test-overview"> Tests youve been assgined</a></div> */}
+          {/* <div className={"sub-navbar-item"}><a href="./creator/test-overview"> Your test results</a></div> */}
           <div className={"sub-navbar-item"}><a href="./creator/test/new"> Create A New Test </a></div>
           <div className={"sub-navbar-item"}><a href="./bartop/drink/new"> Create A New Drink </a></div>
         </div>

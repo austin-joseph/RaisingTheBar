@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-          <BrowserRouter basename={process.env.PUBLIC_URL+'/'}>
+          <BrowserRouter basename={process.env.PUBLIC_URL+"/"}>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/user/login" component={AuthContainer} />

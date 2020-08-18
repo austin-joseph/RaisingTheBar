@@ -6,7 +6,7 @@ export default class Results extends Component {
 	render() {
 		if (this.props.match.params.var1 === "recipe" && this.props.match.params.var2 === "submit") {
 
-			setTimeout(function () { this.props.history.push("/creator") }.bind(this), 2000);
+			setTimeout(function () { this.props.history.push("./creator") }.bind(this), 2000);
 			return (
 				<div>
 					<NavigationBar />
