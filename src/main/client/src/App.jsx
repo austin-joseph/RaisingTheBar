@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './components/home/Home';
 import AuthContainer from './components/auth/AuthContainer';
 import BartopContainer from './components/bartop/BartopContainer';
@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-          <Router>
+          <BrowserRouter basename={process.env.PUBLIC_URL+'/'}>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/user/login" component={AuthContainer} />
@@ -25,7 +25,7 @@ class App extends Component {
               <Route path="/results/:var1/:var2?/:var3?" component={Results} />
               <Route component={NoMatch} />
             </Switch>
-          </Router>
+          </BrowserRouter>
       </React.Fragment>
     );
   }

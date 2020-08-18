@@ -1,50 +1,51 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.7.2",
-    "bootstrap": "^4.3.1",
-    "jquery": "^3.4.1",
-    "material-table": "^1.54.1",
-    "material-ui": "^0.20.2",
-    "mdbreact": "^4.23.0",
-    "node-sass": "^4.13.0",
-    "popper.js": "1.14.7",
-    "react": "^16.11.0",
-    "react-bootstrap": "^1.0.0-beta.14",
-    "react-click-n-hold": "^1.0.7",
-    "react-dom": "^16.11.0",
-    "react-icons": "^3.8.0",
-    "react-native": "^0.61.5",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.3.0",
-    "react-sidebar": "^3.0.2",
-    "reactjs-popup": "^1.5.0",
-    "reactstrap": "^8.1.1",
-    "semantic-ui-react": "^0.88.1",
-    "typescript": "^3.7.2",
-    "yarn": "^1.21.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "client",
+    "version": "0.1.0",
+    "private": true,
+    "homepage": ".",
+    "dependencies": {
+        "@material-ui/core": "^4.7.2",
+        "bootstrap": "^4.3.1",
+        "jquery": "^3.4.1",
+        "material-table": "^1.54.1",
+        "material-ui": "^0.20.2",
+        "mdbreact": "^4.23.0",
+        "node-sass": "^4.13.0",
+        "popper.js": "1.14.7",
+        "react": "^16.11.0",
+        "react-bootstrap": "^1.0.0-beta.14",
+        "react-click-n-hold": "^1.0.7",
+        "react-dom": "^16.11.0",
+        "react-icons": "^3.8.0",
+        "react-native": "^0.61.5",
+        "react-router-dom": "^5.1.2",
+        "react-scripts": "^3.3.0",
+        "react-sidebar": "^3.0.2",
+        "reactjs-popup": "^1.5.0",
+        "reactstrap": "^8.1.1",
+        "semantic-ui-react": "^0.88.1",
+        "typescript": "^3.7.2",
+        "yarn": "^1.21.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }
