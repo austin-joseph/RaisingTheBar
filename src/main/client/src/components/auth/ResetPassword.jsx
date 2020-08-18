@@ -5,38 +5,31 @@ import '../Theme.scss';
 export default class ForgotPassword extends Component {
 	constructor() {
 		super();
-
 		this.state = {
 			email: '',
 			password: ''
 		};
-
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
-
 	handleChange(e) {
 		let target = e.target;
 		let value = target.type === 'checkbox' ? target.checked : target.value;
 		let name = target.name;
-
 		this.setState({
 			[name]: value
 		});
 	}
-
 	handleSubmit(e) {
 		e.preventDefault();
 		var xhr = new XMLHttpRequest();
 		var formData = new FormData();
 		formData.append("email", this.state["email"]);
 		xhr.addEventListener("load", this.formResults)
-		xhr.open("POST", '/user/forgot-password')
+		xhr.open("POST", './user/forgot-password')
 	}
-
 	formResults(e) {
 		if (e.target.status === 202) {
-
 			//login was sucessful
 		} else if (e.target.status === 401) {
 			//The credentials werent recognized by the server
@@ -49,7 +42,7 @@ export default class ForgotPassword extends Component {
 		return (
 			<div className="FormCenter">
 				<div className="FormTitle">
-					<NavLink to="/user/forgot-password" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Forgot Password</NavLink>
+					<NavLink to="./forgot-password" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Forgot Password</NavLink>
 				</div>
 				<form onSubmit={this.handleSubmit} className="FormFields">
 					<div className="FormField">

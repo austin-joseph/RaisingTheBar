@@ -14,7 +14,6 @@ export default class SignUpForm extends Component {
       attempted: false,
       sucessful: false
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.formResults = this.formResults.bind(this);
@@ -24,7 +23,6 @@ export default class SignUpForm extends Component {
     let target = e.target;
     let value = target.type === 'checkbox' ? target.checked : target.value;
     let name = target.name;
-
     this.setState({ [name]: value });
   }
 
@@ -35,14 +33,14 @@ export default class SignUpForm extends Component {
     formData.append("email", this.state.email);
     formData.append("password", this.state.password);
     xhr.addEventListener("load", this.formResults);
-    xhr.open("POST", '/user/signup');
+    xhr.open("POST", './user/signup');
     xhr.send(formData);
     console.log("Attempting Signup")
   }
 
   formResults(e) {
     if (e.target.status == 201 || e.target.status === 202) {
-      setTimeout(function(){this.props.redirectCallback("/")}.bind(this), 1500)
+      setTimeout(function(){this.props.redirectCallback("../")}.bind(this), 1500)
       
       this.setState({ attempted: true, sucessful: true })
       console.log("Signup Succeded")
@@ -61,7 +59,7 @@ export default class SignUpForm extends Component {
     return (
       <div className="FormCenter">
         <div className="FormTitle">
-          <NavLink to="/user/login" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Login</NavLink> or <NavLink exact to="/user/signup" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
+          <NavLink to="./login" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Login</NavLink> or <NavLink exact to="./signup" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
         </div>
         <form onSubmit={this.handleSubmit} className="FormFields">
           <div className="FormField">

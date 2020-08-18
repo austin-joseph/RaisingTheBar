@@ -5,29 +5,24 @@ import '../Theme.scss';
 export default class LoginForm extends Component {
     constructor() {
         super();
-
         this.state = {
             email: '',
             password: '',
             attempted: false,
             sucessful: false
         };
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formResults = this.formResults.bind(this);
     }
-
     handleChange(e) {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;
         let name = target.name;
-
         this.setState({
             [name]: value
         });
     }
-
     handleSubmit(e) {
         e.preventDefault();
         var xhr = new XMLHttpRequest();
@@ -35,13 +30,13 @@ export default class LoginForm extends Component {
         formData.append("email", this.state.email);
         formData.append("password", this.state.password);
         xhr.addEventListener("load", this.formResults)
-        xhr.open("POST", '/user/login');
+        xhr.open("POST", './user/login');
         xhr.send(formData);
     }
 
     formResults(e) {
         if (e.target.status === 202) {
-            setTimeout(function(){this.props.redirectCallback("/")}.bind(this), 1500)
+            setTimeout(function () { this.props.redirectCallback("../") }.bind(this), 1500)
             this.setState({ attempted: true, sucessful: true })
             console.log("Login Succeded")
             //login was sucessful
@@ -59,9 +54,8 @@ export default class LoginForm extends Component {
         return (
             <div className="FormCenter">
                 <div className="FormTitle">
-                    <NavLink to="/user/login" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Login</NavLink> or <NavLink exact to="/user/signup" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
+                    <NavLink to="./login" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Login</NavLink> or <NavLink exact to="./signup" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
                 </div>
-
                 <form onSubmit={this.handleSubmit} className="FormFields center">
                     <div className="FormField">
                         <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
@@ -83,7 +77,7 @@ export default class LoginForm extends Component {
                         <button className="FormField__Button mr-20">Login</button>
                     </div>
                     <div className="FormField">
-                        <Link to="/user/forgot-password" className="FormField__Link">Forgot Password?</Link>
+                        <Link to="./forgot-password" className="FormField__Link">Forgot Password?</Link>
                     </div>
                 </form>
             </div>
