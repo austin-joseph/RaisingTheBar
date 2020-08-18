@@ -76,24 +76,7 @@
             <scope>provided</scope>
         </dependency> -->
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>tomcat</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <webXml>${project.basedir}/web.xml</webXml>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-    
+        
     <build>
         <plugins>
             <!--            <plugin>
