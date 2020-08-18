@@ -275,7 +275,7 @@ export default class BartopContainer extends Component {
     xhr.onload = function () {
       // console.log(this)
       if (this.status == 201) {
-        parent.props.history.push("../results/drinks/add/success");
+        parent.props.history.push("../../results/drinks/add/success");
       } else {
         parent.sendMessage("Error: " + this.status + " when sending recipe to server");
       }
