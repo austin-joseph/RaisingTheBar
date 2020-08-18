@@ -166,12 +166,12 @@ export default class SelectedIngredient extends Component {
             }
             //console.log(this.state.ounces);
             return <div onMouseOut={this.onMouseOut} onMouseDown={this.state.ounces ? this.onMouseDown.bind(this) : this.onMouseDownItem.bind(this)} onMouseUp={this.state.ounces ? this.onMouseUp.bind(this) : this.onMouseClick.bind(this)}>
-                <img style={{ transform: `rotate(${rotation}deg)` }} className="top-img" draggable="false" src={"/images/" + (this.props.selectedIngredient.category == "glasses" ? "glasses/" : "ingredients/") + (this.props.selectedIngredient.name).toLowerCase() + ".png"} alt={"Missing Image: " + this.props.selectedIngredient.name} />
+                <img style={{ transform: `rotate(${rotation}deg)` }} className="top-img" draggable="false" src={"./images/" + (this.props.selectedIngredient.category == "glasses" ? "glasses/" : "ingredients/") + (this.props.selectedIngredient.name).toLowerCase() + ".png"} alt={"Missing Image: " + this.props.selectedIngredient.name} />
                 <div id="center-tooltip">Click the ingredient to add</div>
             </div>
         } else {
             return <div id="tooltip" onMouseDown={this.onMouseDown.bind(this)} onMouseUp={this.onMouseUp.bind(this)}>
-                <img className="bottom-img top-image-padding" src="/images/actions/empty_spot.png" alt="empty spot" />
+                <img className="bottom-img top-image-padding" src="./images/actions/empty_spot.png" alt="empty spot" />
                 <span className="tooltiptext">There's nothing in this space!</span>
             </div>
         }
@@ -187,13 +187,13 @@ export default class SelectedIngredient extends Component {
                 return this.props.renderActionBarItem(slot);
             }else {
                 return <div id="tooltip">
-                    <img className="bottom-img top-image-padding" src="/images/actions/empty_spot.png" alt="empty spot" />
+                    <img className="bottom-img top-image-padding" src="./images/actions/empty_spot.png" alt="empty spot" />
                     <span className="tooltiptext">There's nothing in this space!</span>
                 </div>
             }
         } else {
             return <div id="tooltip">
-                <img className="bottom-img top-image-padding" src="/images/actions/empty_spot.png" alt="empty spot" />
+                <img className="bottom-img top-image-padding" src="./images/actions/empty_spot.png" alt="empty spot" />
                 <span className="tooltiptext">There's nothing in this space!</span>
             </div>
         }

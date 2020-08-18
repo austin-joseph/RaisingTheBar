@@ -115,7 +115,7 @@ export default class BartopContainer extends Component {
         }
       } else if (this.props.match.params.var2 === "edit" && this.props.match.params.var3 != null) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/drinks/get?id=' + this.props.match.params.var3);
+        xhr.open('GET', "./drinks/get?id=" + this.props.match.params.var3);
         // let local_this = this;
         xhr.onload = function (e) {
           // do something to response
@@ -146,7 +146,7 @@ export default class BartopContainer extends Component {
       var globalThis = this;
       if (this.props.match.params.var2 != null) {
         var xhrSim = new XMLHttpRequest();
-        xhrSim.open('GET', '/tests/get?id=' + this.props.match.params.var2);
+        xhrSim.open('GET', "./tests/get?id=" + this.props.match.params.var2);
         xhrSim.onload = function () {
           if (this.status == 200) {
             let simulationJson = JSON.parse(this.responseText);
@@ -156,7 +156,7 @@ export default class BartopContainer extends Component {
             if (simulationJson.drinkIds != null) {
               for (var i = 0; i < simulationJson.drinkIds.length; i++) {
                 var xhr2 = new XMLHttpRequest();
-                xhr2.open('GET', '/drinks/get?id=' + simulationJson.drinkIds[i]);
+                xhr2.open('GET', "./drinks/get?id=" + simulationJson.drinkIds[i]);
                 xhr2.onload = function () {
                   if (this.status === 200) {
                     try {
@@ -264,18 +264,18 @@ export default class BartopContainer extends Component {
     }
     // console.log(outputJson);
     var formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('description', data.description);
-    formData.append('isPublic', data.public);
-    formData.append('json', JSON.stringify(outputJson));
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("isPublic", data.public);
+    formData.append("json", JSON.stringify(outputJson));
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/drinks/add');
+    xhr.open('POST', "./drinks/add");
     var parent = this
     console.log(formData.entries());
     xhr.onload = function () {
       // console.log(this)
       if (this.status == 201) {
-        parent.props.history.push("/results/drinks/add/success");
+        parent.props.history.push("./results/drinks/add/success");
       } else {
         parent.sendMessage("Error: " + this.status + " when sending recipe to server");
       }
@@ -457,7 +457,7 @@ export default class BartopContainer extends Component {
     formData.append("id", this.props.match.params.var2);
     formData.append("grade", (totalRecipesCorrect * pointsForEachRecipe));
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/tests/grade/add');
+    xhr.open('POST', "./tests/grade/add");
     var globalThis = this;
     xhr.onload = function () {
       globalThis.setState({ grade: (totalRecipesCorrect * pointsForEachRecipe) });
@@ -783,7 +783,7 @@ export default class BartopContainer extends Component {
 
 
       return <div id="tooltip" >
-        <img className="top-img" draggable="false" src={"/images/glasses/" + (glass.name).toLowerCase() + ".png"} alt={"Missing Image: " + glass.name} />
+        <img className="top-img" draggable="false" src={"./images/glasses/" + (glass.name).toLowerCase() + ".png"} alt={"Missing Image: " + glass.name} />
         <span className="tooltiptext" onDrop={this.handleChildClick.bind(this)} >
           {
             actionStack.length == 0 ? "Empty" : actionStack.map((item, index) => {
@@ -812,7 +812,7 @@ export default class BartopContainer extends Component {
       </div>
     } else {
       return <div id="tooltip"  >
-        <img className="bottom-img" src="/images/actions/empty_spot.png" alt="empty spot" />
+        <img className="bottom-img" src="./images/actions/empty_spot.png" alt="empty spot" />
         <div className="MuiButton-root MuiButton-text" id="centered">Quick Bar</div>
         <span className="tooltiptext" >There's nothing in this space!</span>
       </div>
@@ -824,12 +824,12 @@ export default class BartopContainer extends Component {
     var image = null;
 
     if (index == 0) {
-      image = "/images/actions/shaker.png";
+      image = "./images/actions/shaker.png";
     } else if (index == 1) {
-      image = "/images/actions/pan.png";
+      image = "./images/actions/pan.png";
     }
     else if (index == 2) {
-      image = "/images/actions/knife.png";
+      image = "./images/actions/knife.png";
     }
     return (<div id="tooltip"><img src={image} alt={"actionBar index " + index + " not found"} /><span className="tooltiptext">{
       this.state.actionBar[index].actionStack == 0 ? "Empty" : this.state.actionBar[index].actionStack.map((item, index) => {
@@ -881,7 +881,7 @@ export default class BartopContainer extends Component {
                   addSelectedIngredientToSelectedSlotCallbackRemaining={this.addSelectedIngredientToSelectedSlotCallbackRemaining} sendMessage={this.sendMessage} sendSimulationMessage={this.sendSimulationMessage}
                 />
                 <div className="garbage" onDrop={this.handleGarbage.bind(this)} onDragOver={(e) => e.preventDefault()}>
-                  <img src="/images/actions/garbage.png" />
+                  <img src="./images/actions/garbage.png" />
                 </div>
                 <ActionBar onActionEndCallback={this.onActionEndCallback} renderActionBarItem={this.renderActionBarItem}
                   selectedSlot={this.state.selectedSlot} onSelectedSlotChangeCallback={this.onSelectedSlotChangeCallback}
