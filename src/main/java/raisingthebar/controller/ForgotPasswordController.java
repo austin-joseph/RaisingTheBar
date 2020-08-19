@@ -1,7 +1,7 @@
 package raisingthebar.controller;
 
 import raisingthebar.database.CustomUserDetailsService;
-import raisingthebar.database.EmailSenderService;
+//import raisingthebar.database.EmailSenderService;
 import raisingthebar.database.entity.User;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +20,8 @@ public class ForgotPasswordController {
     @Autowired
     protected CustomUserDetailsService userService;
 
-    @Autowired
-    private EmailSenderService emailSenderService;
+//    @Autowired
+//    private EmailSenderService emailSenderService;
     
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -56,7 +56,7 @@ public class ForgotPasswordController {
             mailMessage.setText("To reset your password, click the link below:\n" + appUrl
 					+ "/reset-password?token=" + user.getResetToken());
 
-            emailSenderService.sendEmail(mailMessage);
+//            emailSenderService.sendEmail(mailMessage);
 
             modelAndView.addObject("message", "Request to reset password received. Check your inbox for the reset link.");
             modelAndView.setViewName("successResetPassword");
