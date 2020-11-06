@@ -1,1 +1,1 @@
-docker run -dit -p 8080:8080 --name raisingthebar --network raisingthebar raisingthebar
+docker run -dit -p 4002:8080 --name raisingthebar --network raisingthebar raisingthebar
