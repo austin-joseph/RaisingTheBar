@@ -5,8 +5,7 @@
 
     <groupId>com.raisingthebar</groupId>
     <artifactId>raisingthebar</artifactId>
-    <version>1.1.0</version>
-    <packaging>war</packaging>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -50,6 +49,7 @@
     </dependencies>
         
     <build>
+		<finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

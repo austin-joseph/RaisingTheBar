@@ -30,7 +30,7 @@ export default class LoginForm extends Component {
         formData.append("email", this.state.email);
         formData.append("password", this.state.password);
         xhr.addEventListener("load", this.formResults)
-        xhr.open("POST", './user/login');
+        xhr.open("POST", './user/login/action');
         xhr.send(formData);
     }
 
