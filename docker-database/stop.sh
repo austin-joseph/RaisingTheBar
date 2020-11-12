@@ -1,1 +1,1 @@
-docker stop raisingthebar-mongo
+docker stop raisingthebar-database

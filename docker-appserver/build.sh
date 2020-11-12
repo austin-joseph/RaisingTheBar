@@ -1,1 +1,1 @@
-docker build -t raisingthebar .
+docker build -t raisingthebar ./../

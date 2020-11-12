@@ -1,1 +1,0 @@
-mvn -DskipTests appengine:deploy

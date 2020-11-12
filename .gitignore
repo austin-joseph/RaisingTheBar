@@ -10,9 +10,9 @@ buildNumber.properties
 .idea
 !/.mvn/wrapper/maven-wrapper.jar
 
-src/main/client/node/*
-src/main/client/node_modules/*
-src/main/client/build/*
+client/node/*
+client/node_modules/*
+client/build/*
 *.vscode/
 *.settings/
 
