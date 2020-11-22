@@ -76,9 +76,9 @@ export default class LoginForm extends Component {
                     <div className="FormField">
                         <button className="FormField__Button mr-20">Login</button>
                     </div>
-                    <div className="FormField">
+                    {/* <div className="FormField">
                         <Link to="./forgot-password" className="FormField__Link">Forgot Password?</Link>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         );
