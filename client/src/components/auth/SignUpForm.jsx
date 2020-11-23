@@ -75,10 +75,10 @@ export default class SignUpForm extends Component {
           <div className="messageLog">
             <div className={this.state.message === 1 ? "show green" : "hidden"}>
               Signup sucessful redirecting...
-                        </div>
+            </div>
             <div className={this.state.message === 2 ? "show red" : "hidden"}>
-              Username or Password incorrect
-                        </div>
+              Email already has an account associated.
+            </div>
             <div className={this.state.message === 3 ? "show orange" : "hidden"}>
               Internal server error
             </div>  
