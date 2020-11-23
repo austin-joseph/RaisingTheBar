@@ -10,7 +10,7 @@ FROM maven:3.6.3-adoptopenjdk-8 as build-server
 WORKDIR /usr/src/app
 COPY src/ ./src
 COPY pom.xml ./
-COPY --from=build-client /usr/src/app/build/ /usr/src/main/resources/static/
+COPY --from=build-client /usr/src/app/build/ ./src/main/resources/static/
 RUN mvn package
 
 FROM tomcat:8-jdk8
