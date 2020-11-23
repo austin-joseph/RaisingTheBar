@@ -9,8 +9,6 @@ export default class LoginForm extends Component {
         this.state = {
             email: '',
             password: '',
-            attempted: false,
-            sucessful: false,
             message: 0
             /*
                  Show no message  0

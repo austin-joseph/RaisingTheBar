@@ -69,14 +69,14 @@ public class LoginController {
 
     @RequestMapping(value = "/user/login", method = RequestMethod.GET)
     public String loginPage() {
-        boolean isAuth = SecurityContextHolder.getContext().getAuthentication() != null &&
- SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
- //when Anonymous Authentication is enabled
- !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) ;
-      if(isAuth) {
+        boolean isAuth = SecurityContextHolder.getContext().getAuthentication() != null
+                && SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
+                && //when Anonymous Authentication is enabled
+                !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken);
+        if (isAuth) {
             return "redirect:/home";
-          
-      }
+
+        }
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();        
 //        (!(auth instanceof AnonymousAuthenticationToken)) {
 //            return "redirect:/home";
