@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+// import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../Theme.scss';
 
 export default class LoginForm extends Component {
@@ -9,7 +10,17 @@ export default class LoginForm extends Component {
             email: '',
             password: '',
             attempted: false,
-            sucessful: false
+            sucessful: false,
+            message: 0
+            /*
+                 Show no message  0
+                SucessMessage: 1,
+                IncorrectUserPassMessage: 2,
+                ServerErrorMessage: 3,
+                ServerNotFound: 4
+                showUnknownErrorMessage: 4
+            */
+
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,16 +48,21 @@ export default class LoginForm extends Component {
     formResults(e) {
         if (e.target.status === 202) {
             setTimeout(function () { this.props.redirectCallback("../") }.bind(this), 1500)
-            this.setState({ attempted: true, sucessful: true })
-            console.log("Login Succeded")
+            this.setState({ message: 1 })
             //login was sucessful
         } else if (e.target.status === 401) {
-            this.setState({ attempted: true, sucessful: false })
-            // this.setState({ redirect: true, sucessful:false })
+            this.setState({ message: 2 })
             //The credentials werent recognized by the server
-            console.log("Login Failed")
+        } else if (e.target.status === 500) {
+            this.setState({ message: 3 })
+            //Internal server error
+        } else if (e.target.status === 404) {
+            this.setState({ message: 4 })
+            //Internal server error
         } else {
-            //Sometthing strange went wrong
+            this.setState({ message: 5 })
+            //Unknown error
+            console.log(e.target.status)
         }
     }
 
@@ -57,6 +73,25 @@ export default class LoginForm extends Component {
                     <NavLink to="./login" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Login</NavLink> or <NavLink exact to="./signup" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
                 </div>
                 <form onSubmit={this.handleSubmit} className="FormFields center">
+
+                    <div className="messageLog">
+                        <div className={this.state.message === 1 ? "show green" : "hidden"}>
+                            Login sucessful redirecting...
+                        </div>
+                        <div className={this.state.message === 2 ? "show red" : "hidden"}>
+                            Username or Password incorrect
+                        </div>
+                        <div className={this.state.message === 3 ? "show orange" : "hidden"}>
+                            Internal server error
+                        </div>
+                        <div className={this.state.message === 4 ? "show red" : "hidden"}>
+                           Unable to connect to server, check your internet connection and try again
+                        </div>
+                        <div className={this.state.message === 5 ? "show orange" : "hidden"}>
+                            Unknown error
+                        </div>
+                    </div>
+
                     <div className="FormField">
                         <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
                         <input type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
@@ -65,13 +100,6 @@ export default class LoginForm extends Component {
                     <div className="FormField">
                         <label className="FormField__Label" htmlFor="password">Password</label>
                         <input type="password" id="password" className="FormField__Input" placeholder="Enter your password" name="password" value={this.state.password} onChange={this.handleChange} />
-                    </div>
-                    <div className={this.state.attempted && !this.state.sucessful ? "show" : "hidden"}>
-                        Login failed please try another email or password
-                    </div>
-
-                    <div className={this.state.attempted && this.state.sucessful ? "show" : "hidden"}>
-                        Login sucessful redirecting...
                     </div>
                     <div className="FormField">
                         <button className="FormField__Button mr-20">Login</button>
