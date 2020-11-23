@@ -18,8 +18,7 @@ Make sure you change your database configuarion from the default raisingthebar-d
 2. ./docker-database/build.sh
 3. ./docker-database/start.sh
 4. ./build.sh
-5. ./build.sh
-6. ./start.sh
+5. ./start.sh
 ```
 
 ## Primary Developer
