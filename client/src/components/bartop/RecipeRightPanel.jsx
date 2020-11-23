@@ -14,10 +14,10 @@ export default class RecipeRightPanel extends Component {
 			description: "",
 			public: true
 		};
-		if (props.mode.mode != "recipe") {
+		if (props.mode.mode !== "recipe") {
 			console.log("RecipeRightPanel is being created on a non recipe page")
 		}
-		if (props.mode.mode == "edit" || props.mode.submode == "get") {
+		if (props.mode.mode === "edit" || props.mode.submode === "get") {
 			this.state.name = props.mode.data.name;
 			this.state.description = props.mode.data.description;
 		}
@@ -34,15 +34,15 @@ export default class RecipeRightPanel extends Component {
 			this.setState({ [e.target.name]: e.target.checked });
 			console.log("1111");
 		} else {
-			if ((e.target.name == "name" && e.target.value.length <= 50)
+			if ((e.target.name === "name" && e.target.value.length <= 50)
 				||
-				(e.target.name == "description" && e.target.value.length <= 500)) {
+				(e.target.name === "description" && e.target.value.length <= 500)) {
 				this.setState({ [e.target.name]: e.target.value });
 			}
 		}
 	}
 	hadValidGlass() {
-		return this.props.selectedSlot != null && this.props.selectedSlot.bar == "quick" && this.props.selectedSlot.data != null && this.props.selectedSlot.data.glass != null && this.props.selectedSlot.data.actionStack.length > 0;
+		return this.props.selectedSlot != null && this.props.selectedSlot.bar === "quick" && this.props.selectedSlot.data != null && this.props.selectedSlot.data.glass != null && this.props.selectedSlot.data.actionStack.length > 0;
 	}
 	render() {
 		return (

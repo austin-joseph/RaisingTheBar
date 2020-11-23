@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
-import { Tooltip } from 'react-bootstrap';
 import "./SelectedIngredient.scss";
 
 export default class SelectedIngredient extends Component {
@@ -86,7 +84,7 @@ export default class SelectedIngredient extends Component {
                 if (stack[i].amount != null ) {
 
                     // check if ingredient is liquid or not
-                    if (stack[i].scale != "count") {
+                    if (stack[i].scale !== "count") {
                         totalAmount = totalAmount + stack[i].amount;
                     }
                 }
@@ -101,7 +99,7 @@ export default class SelectedIngredient extends Component {
             // console.log(data.amount)
             // console.log(this.props.selectedSlot)
 
-            if (this.props.selectedSlot.bar != "action") {
+            if (this.props.selectedSlot.bar !== "action") {
                 
                 if (this.props.selectedSlot.data.glass == null) {
                     this.props.sendMessage("Cannot pour into empty slot!")
@@ -114,7 +112,7 @@ export default class SelectedIngredient extends Component {
 
                     let remainingVolume = data.glass.volume - data.amount;
 
-                    if (remainingVolume != 0) {
+                    if (remainingVolume !== 0) {
                         // if there is remaining space add the remaining volume
                         this.props.addSelectedIngredientToSelectedSlotCallbackRemaining(remainingVolume)
                         this.props.sendMessage("Remaining glass volume exceeded. Filled with " + remainingVolume/100 +" oz of " + this.props.selectedIngredient.name)
@@ -159,14 +157,16 @@ export default class SelectedIngredient extends Component {
         const { rotation } = this.state;
         if (this.props.selectedIngredient != null) {
 
-            if (this.props.selectedIngredient.scale == "ounces") {
-                this.state.ounces = true;
+            let newState = this.state.ounces;
+            if (this.props.selectedIngredient.scale === "ounces") {
+                newState = true;
             } else {
-                this.state.ounces = false;
+                newState = false;
             }
+            this.setState({ounces:newState})
             //console.log(this.state.ounces);
             return <div onMouseOut={this.onMouseOut} onMouseDown={this.state.ounces ? this.onMouseDown.bind(this) : this.onMouseDownItem.bind(this)} onMouseUp={this.state.ounces ? this.onMouseUp.bind(this) : this.onMouseClick.bind(this)}>
-                <img style={{ transform: `rotate(${rotation}deg)` }} className="top-img" draggable="false" src={"./images/" + (this.props.selectedIngredient.category == "glasses" ? "glasses/" : "ingredients/") + (this.props.selectedIngredient.name).toLowerCase() + ".png"} alt={"Missing Image: " + this.props.selectedIngredient.name} />
+                <img style={{ transform: `rotate(${rotation}deg)` }} className="top-img" draggable="false" src={"./images/" + (this.props.selectedIngredient.category === "glasses" ? "glasses/" : "ingredients/") + (this.props.selectedIngredient.name).toLowerCase() + ".png"} alt={"Missing Image: " + this.props.selectedIngredient.name} />
                 <div id="center-tooltip">Click the ingredient to add</div>
             </div>
         } else {
@@ -178,11 +178,11 @@ export default class SelectedIngredient extends Component {
     }
     getSlotImage() {
         if (this.props.selectedSlot != null) {
-            if (this.props.selectedSlot.bar == "quick" && this.props.selectedSlot.data.glass != null) {
+            if (this.props.selectedSlot.bar === "quick" && this.props.selectedSlot.data.glass != null) {
                 var glass = this.props.selectedSlot.data.glass;
                 var actionBar = this.props.selectedSlot.data.actionStack;
                 return this.props.renderGlass(glass, actionBar);
-            } else if (this.props.selectedSlot.bar == "action") {
+            } else if (this.props.selectedSlot.bar === "action") {
                 var slot = this.props.selectedSlot.slot;
                 return this.props.renderActionBarItem(slot);
             }else {

@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import './TestCard.scss';
 
 export default class SimulationCard extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
-    let { id, name, recipes, description, isPractice, link } = this.props.simulation;
+    let { id, name, description, isPractice } = this.props.simulation;
     return (
       <div className="card text-center container-fluid d-flex justify-content-center">
         <div className="card-body text-dark">

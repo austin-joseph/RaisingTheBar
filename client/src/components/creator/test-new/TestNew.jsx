@@ -32,7 +32,7 @@ export default class TestNew extends Component {
 					break;
 				}
 			}
-			if (targetTest != null) {
+			if (targetTest !== null) {
 				var newState = {};
 				newState.id = targetTest.id;
 				newState.mode = "edit";
@@ -59,7 +59,7 @@ export default class TestNew extends Component {
 	}
 	handleChange(thingChanged, event) {
 		// console.log({ [thingChanged]: event.target.type == "checkbox" ? event.target.checked : event.target.value })
-		this.setState({ [thingChanged]: event.target.type == "checkbox" ? event.target.checked : event.target.value });
+		this.setState({ [thingChanged]: event.target.type === "checkbox" ? event.target.checked : event.target.value });
 	}
 	submitTest() {
 		var errored = false;
@@ -67,15 +67,15 @@ export default class TestNew extends Component {
 			this.addError("noDrinks", "You havent added any drinks to the test");
 			errored = true;
 		}
-		if (this.state.name == null || this.state.name == "") {
+		if (this.state.name == null || this.state.name === "") {
 			this.addError("noName", "Please give the test a name");
 			errored = true;
 		}
-		if (this.state.description == null || this.state.description == "") {
+		if (this.state.description == null || this.state.description === "") {
 			this.addError("noDest", "Please give the test a description");
 			errored = true;
 		}
-		if (errored == false) {
+		if (errored === false) {
 
 			var outputDrinkIds = [];
 			for (var i = 0; i < this.state.selectedDrinks.length; i++) {
@@ -90,7 +90,7 @@ export default class TestNew extends Component {
 	}
 
 	onSubmitFinishCallback(response) {
-		if (response.status != 200) {
+		if (response.status !== 200) {
 			console.log(response.status);
 			this.addError("communicationError", "Test could not be saved at this time please try again later. (" + response.status + " Error)")
 		} else {
@@ -101,7 +101,7 @@ export default class TestNew extends Component {
 	addError(tag, text) {
 		var tempErrorLog = this.state.errorLog;
 		for (var i = 0; i < tempErrorLog.length; i++) {
-			if (tempErrorLog[i][0] == tag) {
+			if (tempErrorLog[i][0] === tag) {
 				return;
 			}
 		}
@@ -112,7 +112,7 @@ export default class TestNew extends Component {
 	deleteError(tag) {
 		var tempErrorLog = this.state.errorLog;
 		for (var i = 0; i < tempErrorLog.length; i++) {
-			if (tempErrorLog[i][0] == tag) {
+			if (tempErrorLog[i][0] === tag) {
 				tempErrorLog.splice(i, 1);
 				break;
 			}

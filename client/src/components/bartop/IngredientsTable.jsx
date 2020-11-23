@@ -55,7 +55,7 @@ export default class IngredientsTabs extends Component {
 												let boundFunctionCall = this.onIngredientClick.bind(this, x);
 												output.push(
 													<div draggable={this.isDraggable()} onDragStart={this.handleDragStart.bind(gloablThis, x)} className={this.props.selected === x ? "list_element selected" : "list_element"} key={x["name"]} onClick={boundFunctionCall}>
-														<img draggable="false" src={"./images/" + ((x["category"] == "glasses") ? "glasses/" : "ingredients/") + x["name"].toLowerCase() + ".png"} alt={"Missing Image: " + x["name"]} />
+														<img draggable="false" src={"./images/" + ((x["category"] === "glasses") ? "glasses/" : "ingredients/") + x["name"].toLowerCase() + ".png"} alt={"Missing Image: " + x["name"]} />
 														<p>{x["name"]}</p>
 													</div>
 												);

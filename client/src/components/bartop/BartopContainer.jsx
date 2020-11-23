@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import NavigationBar from "../navbar/NavigationBar";
-// import { Container, Row, Col } from "react-bootstrap";
 import IngredientsTable from "./IngredientsTable";
-import Controls from "./Controls";
 import QuickBar from "./QuickBar";
 import SelectedIngredient from "./SelectedIngredient";
 import ActionBar from "./ActionBar";
@@ -148,7 +146,7 @@ export default class BartopContainer extends Component {
         var xhrSim = new XMLHttpRequest();
         xhrSim.open('GET', "./tests/get?id=" + this.props.match.params.var2);
         xhrSim.onload = function () {
-          if (this.status == 200) {
+          if (this.status === 200) {
             let simulationJson = JSON.parse(this.responseText);
             if (simulationJson.isPractice) {
               globalThis.setPractice();
@@ -225,7 +223,7 @@ export default class BartopContainer extends Component {
       this.sendMessage("Can't submit, the recipe description cant be longer than 500 characters");
       return;
     }
-    if (this.state.selectedSlot == null || this.state.selectedSlot.bar != "quick") {
+    if (this.state.selectedSlot == null || this.state.selectedSlot.bar !== "quick") {
       this.sendMessage("Can't submit, a quick bar item must be selected");
       return;
     }
@@ -274,7 +272,7 @@ export default class BartopContainer extends Component {
     console.log(formData.entries());
     xhr.onload = function () {
       // console.log(this)
-      if (this.status == 201) {
+      if (this.status === 201) {
         parent.props.history.push("../../results/drinks/add/success");
       } else {
         parent.sendMessage("Error: " + this.status + " when sending recipe to server");
@@ -285,7 +283,7 @@ export default class BartopContainer extends Component {
   }
 
   submitRecipeGradingCallback() {
-    if (this.state.selectedSlot == null || this.state.selectedSlot.bar != "quick") {
+    if (this.state.selectedSlot == null || this.state.selectedSlot.bar !== "quick") {
       this.sendSimulationMessage("Can't submit recipe for grading, a quick bar item must be selected");
       return;
     }
@@ -305,16 +303,17 @@ export default class BartopContainer extends Component {
     this.setState({ completedRecipes: recipe })
 
     // if user has submitted the number of recipes in the simulation, automatically submit simulation for grading
-    if (this.state.recipeQueue.length == this.state.completedRecipes.length) {
+    if (this.state.recipeQueue.length === this.state.completedRecipes.length) {
       this.submitSimulationGradingCallback();
 
     }
 
     // CLEAR SELECTED GLASS AFTER SUBMITTING RECIPE STILL TO BE IMPLEMENTED
     var qIndex = this.state.selectedSlot.slot;
-    this.state.quickBar[qIndex].actionStack = [];
-    this.state.quickBar[qIndex].glass = null;
-    this.setState({ quickBar: this.state.quickBar });
+    let newQuickBar = this.state.quickBar;
+    newQuickBar[qIndex].actionStack = [];
+    newQuickBar[qIndex].glass = null;
+    this.setState({ quickBar: newQuickBar });
 
   }
 
@@ -329,7 +328,6 @@ export default class BartopContainer extends Component {
     var recipeQueueList = this.state.recipeQueue;
 
     var recipesCompletedLength = recipesCompletedList.length;
-    var recipeQueueLength = recipeQueueList.length
     var pointsForEachRecipe = (100 / this.state.recipeQueue.length);
     var totalRecipesCorrect = 0;
     // loop through recipes in completed recipes and compare to see if it matches recipes in the queue
@@ -417,11 +415,6 @@ export default class BartopContainer extends Component {
               // thencheck ingredients amount 10 percentage leeway if it is liquid
               if (recipesCompletedList[i].actionStack[j].scale === "ounces") {
 
-
-                var tenPercentOfAmount = recipeJsonParsed.actionStack[j].amount * .10;
-                var bottomRange = (recipeJsonParsed.actionStack[j].amount) - tenPercentOfAmount;
-                var topRange = (recipeJsonParsed.actionStack[j].amount) + tenPercentOfAmount;
-
                 // if amount doesnt fall in range
                 if (recipesCompletedList[i].actionStack[j].amount < bottomRange
                   || recipesCompletedList[i].actionStack[j].amount > topRange) {
@@ -481,7 +474,7 @@ export default class BartopContainer extends Component {
 
       let actionStack = this.state.actionBar[index].actionStack;
       console.log(actionStack)
-      if (actionStack.length == 0) {
+      if (actionStack.length === 0) {
         this.sendMessage("Only one ingredient in shaker!");
         this.sendSimulationMessage("Only one ingredient in shaker!");
       } else if (actionStack[actionStack.length - 1] !== "shake" && actionStack.length !== 1) {
@@ -516,11 +509,10 @@ export default class BartopContainer extends Component {
     if (this.state.selectedIngredient != null && this.state.selectedSlot != null) {
       if ((this.state.selectedSlot.bar === "quick" && this.state.selectedSlot.data.glass != null) || (this.state.selectedSlot.bar === "action")) {
         let data = this.state.selectedSlot.data;
-        let stack = data.actionStack;
         let ingredient = Object.assign({}, this.state.selectedIngredient)
         //console.log(stack)
         if (elapsedTime > 0) {
-          if (data.actionStack.length > 0 && data.actionStack[data.actionStack.length - 1].name == this.state.selectedIngredient.name && data.actionStack[data.actionStack.length - 1].amount != null) {
+          if (data.actionStack.length > 0 && data.actionStack[data.actionStack.length - 1].name === this.state.selectedIngredient.name && data.actionStack[data.actionStack.length - 1].amount != null) {
             // if last item on the aciton stack and selected ingredient is the same merge them
             ingredient.amount = this.convertTimeToAmount(elapsedTime) + data.actionStack[data.actionStack.length - 1].amount;
             data.actionStack.pop();
@@ -538,7 +530,7 @@ export default class BartopContainer extends Component {
           // first check if selected slot is a shaker, if it is dont allow to add things of scale "count"
           // if it is not a shaker and ingredient is scale of count
           if (this.state.selectedSlot.bar !== "action") {
-            if (data.actionStack.length > 0 && data.actionStack[data.actionStack.length - 1].name == this.state.selectedIngredient.name && data.actionStack[data.actionStack.length - 1].amount != null) {
+            if (data.actionStack.length > 0 && data.actionStack[data.actionStack.length - 1].name === this.state.selectedIngredient.name && data.actionStack[data.actionStack.length - 1].amount != null) {
               // if last item on the aciton stack and selected ingredient is the same merge them
               ingredient.amount = 1 + data.actionStack[data.actionStack.length - 1].amount;
               data.actionStack.pop();
@@ -565,12 +557,11 @@ export default class BartopContainer extends Component {
     if (this.state.selectedIngredient != null && this.state.selectedSlot != null) {
       if ((this.state.selectedSlot.bar === "quick" && this.state.selectedSlot.data.glass != null) || (this.state.selectedSlot.bar === "action")) {
         let data = this.state.selectedSlot.data;
-        let stack = data.actionStack;
 
         let ingredient = Object.assign({}, this.state.selectedIngredient)
         //console.log(ingredient)
         if (amount > 0) {
-          if (data.actionStack.length > 0 && data.actionStack[data.actionStack.length - 1].name == this.state.selectedIngredient.name && data.actionStack[data.actionStack.length - 1].amount != null) {
+          if (data.actionStack.length > 0 && data.actionStack[data.actionStack.length - 1].name === this.state.selectedIngredient.name && data.actionStack[data.actionStack.length - 1].amount != null) {
             ingredient.amount = (amount) + data.actionStack[data.actionStack.length - 1].amount;
             data.actionStack.pop();
           } else {
@@ -603,7 +594,7 @@ export default class BartopContainer extends Component {
       actionBar[index].actionStack = [];
     }
     var element;
-    if (this.state.dragged == actionBar[index]) {
+    if (this.state.dragged === actionBar[index]) {
       this.sendMessage("Please drag your glass to another glass");
     }
     else if (this.state.dragged.glass != null) {
@@ -637,7 +628,7 @@ export default class BartopContainer extends Component {
         quickBar[index].glass = this.state.dragged;
         quickBar[index].actionStack = [];
         this.setState({ quickBar: quickBar, dragged: null });
-      } else if (this.state.dragged == quickBar[index]) {
+      } else if (this.state.dragged === quickBar[index]) {
         this.sendMessage("Please drag your glass to another glass");
       } else if (quickBar[index].glass != null && quickBar[index].glass.category === "glasses" && this.state.dragged.glass == null) {
         //when adding actionbar to quickbar, make sure the glass isnt being added to itself
@@ -661,14 +652,10 @@ export default class BartopContainer extends Component {
           this.sendSimulationMessage("This would overfill that glass!")
         }
         else {
-
-
           //  When you shake create an array first item is word shake second item is array of 
           //  things being shaken instanceofobject = ingredient instanceofarray = shaken list 
           //  of ingredients WORRY ABOUT SHAKING SOMETHING THAT ALREADY HAS BEEN SHAKEN
-
           var shaken = false;
-
           // check if things in shaker have been shaken if not, just add the contents to glass
           for (var elements of this.state.dragged.actionStack) {
             if (elements === "shake") {
@@ -676,19 +663,13 @@ export default class BartopContainer extends Component {
             }
           }
           if (shaken) {
-
-
             let shakeJson = [];
             shakeJson.push("shake");
             let shakeContents = [];
-
-            for (var element of this.state.dragged.actionStack) {
+            for (let element of this.state.dragged.actionStack) {
               if (element !== "shake") {
-
-
                 // check for duplicates when before pushing shakecontents to shakeJson
                 var duplicate = false;
-                var duplicateIndex;
                 for (var i = 0; i < shakeContents.length; i++) {
                   if (shakeContents[i].name === element.name) {
                     shakeContents[i].amount = shakeContents[i].amount + element.amount;
@@ -701,12 +682,10 @@ export default class BartopContainer extends Component {
                 }
               }
             }
-
-
             shakeJson.push(shakeContents);
             quickBar[index].actionStack.push(shakeJson);
           } else {
-            for (var element of this.state.dragged.actionStack) {
+            for (let element of this.state.dragged.actionStack) {
               quickBar[index].actionStack.push(element);
             }
           }
@@ -716,7 +695,8 @@ export default class BartopContainer extends Component {
           // clear shaker after it is dragged into glass
           // IMPLEMENT THIS
           if (this.state.dragged != null) {
-            this.state.dragged.actionStack = [];
+            let dragged = this.state.dragged;
+            dragged.actionStack = [];
           }
           this.setState({ dragged: null });
 
@@ -728,9 +708,6 @@ export default class BartopContainer extends Component {
       this.setState({ dragged: null });
     }
     // console.log(this.state.quickBar)
-  }
-  onDragEndSelectedIngredientCallback(index) {
-
   }
   sendMessage(message) {
     let messageLog = this.state.messageLog;
@@ -745,7 +722,7 @@ export default class BartopContainer extends Component {
   }
   getRecIngredients() {
     var ings = [];
-    if (this.state.isPractice && this.state.recipeQueue.length > 0 && this.state.completedRecipes.length != this.state.recipeQueue.length) {
+    if (this.state.isPractice && this.state.recipeQueue.length > 0 && this.state.completedRecipes.length !== this.state.recipeQueue.length) {
       var index = this.state.completedRecipes.length;
       var item = this.state.recipeQueue[index];
       var item2 = JSON.parse(item.json).actionStack;
@@ -774,7 +751,8 @@ export default class BartopContainer extends Component {
 
   handleGarbage() {
     if (this.state.dragged != null) {
-      this.state.dragged.actionStack = [];
+      let dragged = this.state.dragged;
+      dragged.actionStack = [];
     }
     this.setState({ dragged: null });
   }
@@ -786,7 +764,7 @@ export default class BartopContainer extends Component {
         <img className="top-img" draggable="false" src={"./images/glasses/" + (glass.name).toLowerCase() + ".png"} alt={"Missing Image: " + glass.name} />
         <span className="tooltiptext" onDrop={this.handleChildClick.bind(this)} >
           {
-            actionStack.length == 0 ? "Empty" : actionStack.map((item, index) => {
+            actionStack.length === 0 ? "Empty" : actionStack.map((item, index) => {
               if (item instanceof Object) {
 
                 if (item.scale === "ounces") {
@@ -823,16 +801,16 @@ export default class BartopContainer extends Component {
 
     var image = null;
 
-    if (index == 0) {
+    if (index === 0) {
       image = "./images/actions/shaker.png";
-    } else if (index == 1) {
+    } else if (index === 1) {
       image = "./images/actions/pan.png";
     }
-    else if (index == 2) {
+    else if (index === 2) {
       image = "./images/actions/knife.png";
     }
     return (<div id="tooltip"><img src={image} alt={"actionBar index " + index + " not found"} /><span className="tooltiptext">{
-      this.state.actionBar[index].actionStack == 0 ? "Empty" : this.state.actionBar[index].actionStack.map((item, index) => {
+      this.state.actionBar[index].actionStack === 0 ? "Empty" : this.state.actionBar[index].actionStack.map((item, index) => {
         if (item instanceof Object) {
           if (item.scale === "ounces") {
             return (<p key={item.name + index}>{item.name} {item.amount / 100} oz</p>);
@@ -881,7 +859,7 @@ export default class BartopContainer extends Component {
                   addSelectedIngredientToSelectedSlotCallbackRemaining={this.addSelectedIngredientToSelectedSlotCallbackRemaining} sendMessage={this.sendMessage} sendSimulationMessage={this.sendSimulationMessage}
                 />
                 <div className="garbage" onDrop={this.handleGarbage.bind(this)} onDragOver={(e) => e.preventDefault()}>
-                  <img src="./images/actions/garbage.png" />
+                  <img src="./images/actions/garbage.png" alt="garbage" />
                 </div>
                 <ActionBar onActionEndCallback={this.onActionEndCallback} renderActionBarItem={this.renderActionBarItem}
                   selectedSlot={this.state.selectedSlot} onSelectedSlotChangeCallback={this.onSelectedSlotChangeCallback}

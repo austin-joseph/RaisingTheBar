@@ -28,11 +28,6 @@ export default class ActionBar extends Component {
 	}
 	handleDragStart(item, e) {
 		var callback = this.props.onDragStartCallback;
-		var output = {
-			data: item.actionStack,
-			type: "action"
-		}
-
 		callback(item);
 	}
 	hilightSlot(index) {

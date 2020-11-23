@@ -59,10 +59,7 @@ export default class Controls extends Component {
 		this.setState({ amount: this.state.amount + delta });
 	}
 	render() {
-		// console.log(this.props)
 		let selected = this.props.selected;
-		let action_stack = this.state.action_stack;
-		console.log(this.state.action_stack);
 		return (
 			<div className="flex-container">
 			

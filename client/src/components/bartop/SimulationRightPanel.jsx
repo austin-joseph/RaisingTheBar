@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import './SimulationRightPanel.scss';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 
 export default class SimulationRightPanel extends Component {
 	constructor() {
@@ -42,7 +40,7 @@ export default class SimulationRightPanel extends Component {
 				<Tab key={"Tasks"} eventKey={"Tasks"} title={"Tasks"}>
 					<div id="submit-title" className="MuiButton-root MuiButton-text block1 ">Required Recipes</div>
 					<div className="log-box-simulation">
-						{this.props.recipeQueue.map((recipe, index) => { return this.props.completedRecipes.length == index ? <p><b>{(index + 1) + " "+recipe.name}</b></p> : <p>{(index + 1) + " "+recipe.name}</p> })}
+						{this.props.recipeQueue.map((recipe, index) => { return this.props.completedRecipes.length === index ? <p><b>{(index + 1) + " "+recipe.name}</b></p> : <p>{(index + 1) + " "+recipe.name}</p> })}
 					</div>
 					<div id="submit-title" className="MuiButton-root MuiButton-text block1 ">Completed Recipes
 						<p id="completed-recipes">
@@ -63,7 +61,7 @@ export default class SimulationRightPanel extends Component {
 					<div className="block"></div>
 					<div id="submit-title" className="MuiButton-root MuiButton-text">Helpful Tips</div>
 					<div className="log-box-simulation">
-						{this.props.simulationLog.length == 0 ? <p>Helpful Tips Will Appear Here</p> : this.props.simulationLog.map((item, index) => {
+						{this.props.simulationLog.length === 0 ? <p>Helpful Tips Will Appear Here</p> : this.props.simulationLog.map((item, index) => {
 							return <p key={this.props.simulationLog[this.props.simulationLog.length - index] + index}>{this.props.simulationLog[this.props.simulationLog.length - index]}</p>
 						})}
 					</div>

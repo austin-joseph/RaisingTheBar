@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
-import { Tooltip } from 'react-bootstrap';
 import "./QuickBar.scss";
 
 export default class QuickBar extends Component {

@@ -160,7 +160,7 @@ export default class CreatorContainer extends Component {
     formData.append("id", id);
     var globalThis = this
     xhr.onload = function () {
-      if (this.status == 200) {
+      if (this.status === 200) {
         globalThis.pullDrinks();
       } else {
         console.log("Got error response code " + this.status + " when trying to delete");
@@ -196,7 +196,7 @@ export default class CreatorContainer extends Component {
     formData.append("json", "{}");
     var globalThis = this;
     xhr.onload = function () {
-      if (this.status == 202) {
+      if (this.status === 202) {
         globalThis.pullTests();
       }
       onSubmitFinishCallback(this)
@@ -217,7 +217,7 @@ export default class CreatorContainer extends Component {
     formData.append("json", "{}");
     var globalThis = this;
     xhr.onload = function () {
-      if (this.status == 202) {
+      if (this.status === 202) {
         globalThis.pullTests();
       }
       onSubmitFinishCallback(this)
